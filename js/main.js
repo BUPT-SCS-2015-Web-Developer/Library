@@ -2,6 +2,34 @@ var nav = {
     _progress: $('#menu-progress'),
     init: function() {
         $(".button-collapse").sideNav();
+        $("#menu-dashboard").click(function() {
+            app.dashboardFrame.init();
+        });
+        $("#menu-borrow").click(function() {
+            $(this).parent().siblings(".active").removeClass("active");
+            $(this).parent().addClass("active");
+            app.borrowFrame.init();
+        });
+        $("#menu-list-my").click(function() {
+            $(this).parent().siblings(".active").removeClass("active");
+            $(this).parent().addClass("active");            
+            app.listMyFrame.init();
+        });
+        $("#menu-list-all").click(function() {
+            $(this).parent().siblings(".active").removeClass("active");
+            $(this).parent().addClass("active");
+            app.listAllFrame.init();
+        });
+        $("#menu-list-history").click(function() {
+            $(this).parent().siblings(".active").removeClass("active");
+            $(this).parent().addClass("active");           
+            app.listHistoryFrame.init();
+        });
+        $("#menu-new").click(function() {
+            $(this).parent().siblings(".active").removeClass("active");
+            $(this).parent().addClass("active");
+            app.newFrame.init();
+        });
     },
     update: function() {
         if(app.isAdmin() == true) {
@@ -10,10 +38,10 @@ var nav = {
         this.hideProgress();
     },
     showProgress: function() {
-        this._progress.show();
+        this._progress.css("visibility", "visible");
     },
     hideProgress: function() {
-        this._progress.hide();
+        this._progress.css("visibility", "hidden");
     }
 }
 
@@ -53,11 +81,18 @@ var app = {
 
         //检查登陆之后更新nav
         setTimeout(function() {
+            app._admin = true;
             nav.update();
         }, 1000);
     },
 
-    searchFrame: searchFrame
+    searchFrame: searchFrame,
+    dashboardFrame: searchFrame,
+    borrowFrame: searchFrame,
+    listMyFrame: searchFrame,
+    listAllFrame: searchFrame,
+    listHistoryFrame: searchFrame,
+    newFrame: searchFrame
 }
 
 $(document).ready(function() {

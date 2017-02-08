@@ -60,11 +60,13 @@ body {
         </nav>
         <ul class="side-nav fixed" id="menu">
             <li class="logo"><a id="menu-dashboard" href="#" class="brand-logo cyan-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Dashboard"><span class="icon-books"></span></a></li>
-            <li class="progress" id="menu-progress" hidden><div class="indeterminate"></div></li>
-            <li><a href="sass.html">Sass</a></li>
-            <li class="menu-admin" hidden><a href="#">Admin</a></li>
-            <li class="menu-admin" hidden><a href="collapsible.html">Javascript</a></li>
-            <li><a href="mobile.html">Mobile</a></li>
+            <li class="progress" id="menu-progress" style="visibility: hidden"><div class="indeterminate"></div></li>
+            <li><a id="menu-borrow" class="waves-effect" href="#">借书</a></li>
+            <li><a id="menu-list-my" class="waves-effect" href="#">已借书籍</a></li>
+            <li class="menu-admin" hidden><a class="subheader" href="#">查看借阅信息</a></li>
+            <li class="menu-admin" hidden><a class="waves-effect" id="menu-list-all" href="#">&nbsp&nbsp&nbsp&nbsp查看全部借阅信息</a></li>
+            <li class="menu-admin" hidden><a class="waves-effect" id="menu-list-history" href="#">&nbsp&nbsp&nbsp&nbsp书籍借阅历史记录</a></li>
+            <li class="menu-admin" hidden><a class="waves-effect" id="menu-new" href="#">录入书籍信息</a></li>
         </ul>
     </header>
     <main>
@@ -75,7 +77,7 @@ body {
     <footer>
         <div class="footer-copyright">
             <div class="container center grey-text text-lighten-1">
-            Made by /Bin
+            Made by /Bin @ BUPTYiBan
             </div>
         </div>
     </footer>
