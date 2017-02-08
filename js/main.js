@@ -17,15 +17,37 @@ var nav = {
     }
 }
 
+var searchFrame = {
+    _count: 1,
+
+    init: function() {
+        app.mainFrame.load('lib/searchFrame.html', function() {
+            $('#refresh').click(function() {
+                app.searchFrame.destroy();
+                app.searchFrame.init();
+            });
+            app.searchFrame.alertCount();
+        });
+    },
+    destroy: function() {
+        alert("destroy " + (this._count - 1));
+        app.mainFrame.empty();
+    },
+    alertCount: function() {
+        alert(this._count);
+        this._count ++;
+    }
+}
+
 var app = {
-    _admin: true,
+    _admin: false,
     isAdmin: function() {
         return this._admin;
     },
-    _mainFrame: $('main'),
+    mainFrame: $('main'),
 
     init: function() {
-        //各Frame／类对应一个html和一个js，各类／Frame负责绑定自己页面上的元素事件。
+        //各类／Frame负责绑定自己页面上的元素事件。
         nav.init();
         nav.showProgress();
 
@@ -35,17 +57,7 @@ var app = {
         }, 1000);
     },
 
-    //一下几个方法用于引入／删除一个Frame／类，表现为替换_mainFrame的元素。这几个方法可能会被其他类／对象调用。
-    //务必注意load方法是非阻塞的
-    getSearchFrame: function() {
-        this._mainFrame.load("lib/searchFrame.html", function() {
-            searchFrame.init();
-        });
-    },
-    removeSearchFrame: function() {
-        searchFrame.destroy();
-        this._mainFrame.empty();
-    }
+    searchFrame: searchFrame
 }
 
 $(document).ready(function() {
