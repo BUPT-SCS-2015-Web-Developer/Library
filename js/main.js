@@ -1,4 +1,28 @@
-var nav = {
+var app = {};
+app.mainFrame = $('main');
+app.init = function() {
+    //各类／Frame负责绑定自己页面上的元素事件。
+    app.nav.init();
+    app.nav.showProgress();
+
+    //检查登陆之后更新nav
+    setTimeout(function() {
+        app.user.setAdmin(true);
+        app.nav.update();
+    }, 1000);
+}
+
+app.user = {
+    //保证其他对象不会调用带下划线的属性和方法
+    _admin: false,
+    isAdmin: function() {
+        return app.user._admin;
+    },
+    setAdmin: function(admin) {
+        app.user._admin = admin;
+    }
+}
+app.nav = {
     _progress: $('#menu-progress'),
     init: function() {
         $(".button-collapse").sideNav();
@@ -32,20 +56,20 @@ var nav = {
         });
     },
     update: function() {
-        if(app.isAdmin() == true) {
+        //app初始化时已经检查过用户信息
+        if(app.user.isAdmin() == true) {
             $('.menu-admin').show();
         }
-        this.hideProgress();
+        app.nav.hideProgress();
     },
     showProgress: function() {
-        this._progress.css("visibility", "visible");
+        app.nav._progress.css("visibility", "visible");
     },
     hideProgress: function() {
-        this._progress.css("visibility", "hidden");
+        app.nav._progress.css("visibility", "hidden");
     }
 }
-
-var searchFrame = {
+app.searchFrame = {
     _count: 1,
 
     init: function() {
@@ -58,42 +82,20 @@ var searchFrame = {
         });
     },
     destroy: function() {
-        alert("destroy " + (this._count - 1));
+        alert("destroy " + (app.searchFrame._count - 1));
         app.mainFrame.empty();
     },
     alertCount: function() {
-        alert(this._count);
-        this._count ++;
+        alert("_count: " + app.searchFrame._count);
+        app.searchFrame._count ++;
     }
 }
-
-var app = {
-    _admin: false,
-    isAdmin: function() {
-        return this._admin;
-    },
-    mainFrame: $('main'),
-
-    init: function() {
-        //各类／Frame负责绑定自己页面上的元素事件。
-        nav.init();
-        nav.showProgress();
-
-        //检查登陆之后更新nav
-        setTimeout(function() {
-            app._admin = true;
-            nav.update();
-        }, 1000);
-    },
-
-    searchFrame: searchFrame,
-    dashboardFrame: searchFrame,
-    borrowFrame: searchFrame,
-    listMyFrame: searchFrame,
-    listAllFrame: searchFrame,
-    listHistoryFrame: searchFrame,
-    newFrame: searchFrame
-}
+app.dashboardFrame= app.searchFrame;
+app.borrowFrame= app.searchFrame;
+app.listMyFrame= app.searchFrame;
+app.listAllFrame= app.searchFrame;
+app.listHistoryFrame= app.searchFrame;
+app.newFrame= app.searchFrame;
 
 $(document).ready(function() {
     //保证该js只由main.html引用，只由main.html加载完时执行此处代码。
