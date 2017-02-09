@@ -6,20 +6,38 @@ app.init = function() {
     app.nav.showProgress();
 
     //检查登陆之后更新nav
-    setTimeout(function() {
-        app.user.setAdmin(true);
+    app.user.checkAuth(function() {
         app.nav.update();
-    }, 1000);
+    });
 }
 
 app.user = {
     //保证其他对象不会调用带下划线的属性和方法
     _admin: false,
+    id: "1234567890",
+    name: "/Bin",
+    pic: "",
     isAdmin: function() {
         return app.user._admin;
     },
     setAdmin: function(admin) {
         app.user._admin = admin;
+    },
+    checkAuth: function(callback) {
+        $.getJSON("API/checkAuth.php", function(data) {
+            if (data.result == "succeed") {
+                app.user.id = data.userID;
+                app.user.name = data.userName;
+                app.user.pic = data.userPic;
+                app.user.setAdmin(data.isAdmin);
+                callback();
+            } else {
+                window.location.href = "API/authorize.php";
+            }
+        });
+    },
+    logout: function() {
+        window.location.href = "API/revoke.php";
     }
 }
 app.nav = {
@@ -53,6 +71,10 @@ app.nav = {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
             app.newFrame.init();
+        });
+        $("#menu-logout").click(function() {
+            $(this).parent().siblings(".active").removeClass("active");
+            app.user.logout();
         });
     },
     update: function() {

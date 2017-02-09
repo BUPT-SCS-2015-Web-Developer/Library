@@ -37,11 +37,17 @@
 body {
     background-color: #FAFAFA;
 }
+main {
+    min-height: 90vh;
+}
 
         @media only screen and (max-width : 992px) {
           header, main, footer {
             padding-left: 0;
           }
+main {
+    min-height: 80vh;
+}
         }
     </style>
 </head>
@@ -67,6 +73,7 @@ body {
             <li class="menu-admin" hidden><a class="waves-effect" id="menu-list-all" href="#">&nbsp&nbsp&nbsp&nbsp查看全部借阅信息</a></li>
             <li class="menu-admin" hidden><a class="waves-effect" id="menu-list-history" href="#">&nbsp&nbsp&nbsp&nbsp书籍借阅历史记录</a></li>
             <li class="menu-admin" hidden><a class="waves-effect" id="menu-new" href="#">录入书籍信息</a></li>
+            <li><a id="menu-logout" class="waves-effect waves-orange" href="#">注销</a></li>
         </ul>
     </header>
     <main>

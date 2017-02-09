@@ -30,10 +30,9 @@
 	
 	if (!empty($_SESSION['token'])) {
         $api->bind($_SESSION['token']);
-        $result = $api->getAuthorize()->revoke();
+        $api->getAuthorize()->revoke();
         $_SESSION['token'] = '';
-        print_r($result);
-        echo "您已退出登陆2";
 	}
-    echo "您已退出登陆";
+    
+	header('location: ' . '../logout.html');
 ?>
