@@ -116,7 +116,10 @@ app.dashboardFrame= app.searchFrame;
 app.borrowFrame= {
     init: function() {
         app.mainFrame.load("lib/borrowFrame.html", function() {
-            
+            $("#search-button").click(function() {
+                $("#search-button").hide();
+                $("#search-preloder").show();
+            });
         })
     }
 }

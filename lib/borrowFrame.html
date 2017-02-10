@@ -1,9 +1,11 @@
 <div>
     <div class="row">
+    </div>
+    <div class="row">
         <div class="col s12 m6">
-            <div class="card">
+            <div id="isbn-card" class="card">
                 <div class="card-content">
-                    <span class="card-title">开始借书</span>
+                    <span class="card-title">&nbsp&nbsp开始借书</span>
                     <form>
                         <div class="row">
                             <div class="input-field col s10">
@@ -12,12 +14,29 @@
                             </div>
                             <div class="col s2">
                                 <p>&nbsp</p>
-                                <a href="#"><i class="material-icons prefix">search</i></a>
+                                <a id="search-button" href="#"><i class="material-icons prefix">search</i></a>
+                                <div class="preloader-wrapper small active" hidden>
+                                    <div id="search-preloder" class="spinner-layer spinner" hidden>
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="col s12 m6 grey-text text-darken-1">
+            <h5>借阅说明</h5>
+            <p>借出工作站需要在这个系统里登记。</br>每本书可以借出XX天。为方便大家借书请看完后尽快归还。</br>每个人最多可同时借X本书。</p>
         </div>
     </div>
 </div>
