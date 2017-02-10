@@ -114,15 +114,44 @@ app.searchFrame = {
 }
 app.dashboardFrame= app.searchFrame;
 app.borrowFrame= {
+    bookCard: [],
     init: function() {
         app.mainFrame.load("lib/borrowFrame.html", function() {
             $("#search-button").click(function() {
                 $("#search-button").hide();
                 $("#search-preloder").show();
+                $.getJSON("API/isbn.php", {isbn: $("#isbn").val()}, function(data) {
+                    if (data.result == "succeed") {
+                        $("#isbn-card").hide();
+                        for (i in data.books) {
+                            app.borrowFrame.bookCard[i] = new app.borrowFrame.BookCard(data.books[i]);
+                            $("#book-container").append(app.borrowFrame.bookCard[i].card);
+                        }
+                    }
+                });
             });
         })
     }
 }
+app.borrowFrame.BookCard = function(property) {
+    this.card = $("#default-book-card").clone();
+    this.card.find(".book-image").attr("src", property.images.large);
+    this.card.find(".book-title").html(property.title);
+    this.card.find(".book-author").html(property.author.join('、'));
+    this.card.find(".book-tags").html('<div class="chip">' + property.tags.join('</div><div class="chip">') + '</div>');
+    this.card.find(".book-pubdate").html(property.pubdate);
+    this.card.find(".book-summary").html(property.summary);
+    this.card.find(".book-location").html(property.location);
+    this.card.find(".book-borrow").attr("isbn", property.isbn13);
+    this.card.find(".book-borrow").click(function() {
+        alert("ISBN: " + $(this).attr("isbn"));
+    });
+    this.card.show();
+}
+app.borrowFrame.BookCard.prototype.destroy = function() {
+    this.card.remove();
+}
+
 app.listMyFrame= app.searchFrame;
 app.listAllFrame= app.searchFrame;
 app.listHistoryFrame= app.searchFrame;
