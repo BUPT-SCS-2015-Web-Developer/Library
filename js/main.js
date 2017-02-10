@@ -113,7 +113,13 @@ app.searchFrame = {
     }
 }
 app.dashboardFrame= app.searchFrame;
-app.borrowFrame= app.searchFrame;
+app.borrowFrame= {
+    init: function() {
+        app.mainFrame.load("lib/borrowFrame.html", function() {
+            
+        })
+    }
+}
 app.listMyFrame= app.searchFrame;
 app.listAllFrame= app.searchFrame;
 app.listHistoryFrame= app.searchFrame;
