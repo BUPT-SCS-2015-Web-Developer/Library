@@ -54,7 +54,8 @@ main {
 
 <body>
     <header>
-        <nav class="hide-on-large-only">
+        <div class="navbar-fixed hide-on-large-only">
+        <nav class="">
             <div class="nav-wrapper"> 
                 <a href="#" data-activates="menu" class="button-collapse"><i class="material-icons">menu</i></a>
                 <a id="back" hidden><i class="material-icons">chevron_left</i></a>
@@ -62,8 +63,8 @@ main {
                     <li id="frame-title">Title</li>
                 </ul>
             </div>
-
         </nav>
+        </div>
         <ul class="side-nav fixed" id="menu">
             <li class="logo"><a id="menu-dashboard" href="#" class="brand-logo cyan-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Dashboard"><span class="icon-books"></span></a></li>
             <li class="progress" id="menu-progress" style="visibility: hidden"><div class="indeterminate"></div></li>
