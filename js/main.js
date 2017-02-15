@@ -133,7 +133,10 @@ app.borrowFrame= {
         })
     }
 }
+//在app.borrowFrame名称空间下定义类BookCard
 app.borrowFrame.BookCard = function(property) {
+    var _this = this;     //在一些jquery绑定的函数中this指像jquery的dom对象
+    this.count = property.isbn13;
     this.card = $("#default-book-card").clone();
     this.card.find(".book-image").attr("src", property.images.large);
     this.card.find(".book-title").html(property.title);
@@ -144,9 +147,15 @@ app.borrowFrame.BookCard = function(property) {
     this.card.find(".book-location").html(property.location);
     this.card.find(".book-borrow").attr("isbn", property.isbn13);
     this.card.find(".book-borrow").click(function() {
-        alert("ISBN: " + $(this).attr("isbn"));
+        //alert("ISBN: " + $(this).attr("isbn"));
+        alert("count: " + _this.count);
+        _this.borrow($(this).attr("isbn") + "0");
     });
     this.card.show();
+}
+app.borrowFrame.BookCard.prototype.borrow = function(bookUID) {
+    alert("Borrow " + bookUID);
+    alert("Count in borrow: " + this.count);
 }
 app.borrowFrame.BookCard.prototype.destroy = function() {
     this.card.remove();
