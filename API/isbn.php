@@ -2,6 +2,7 @@
     "result": "succeed",
     "books": [
         {
+            "amount": 1,
             "location": "2号书架4层5格",
             "subtitle": "",
             "author": [
@@ -34,6 +35,7 @@
             "price": "CNY 69.80"
         },
         {
+            "amount": 3,
             "location": "2号书架4层5格",
             "subtitle": "",
             "author": [

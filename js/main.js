@@ -46,34 +46,41 @@ app.nav = {
         $(".button-collapse").sideNav();
         $("#menu-dashboard").click(function() {
             app.dashboardFrame.init();
+            $('.button-collapse').sideNav('hide');
         });
         $("#menu-borrow").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
+            $('.button-collapse').sideNav('hide');
             app.borrowFrame.init();
         });
         $("#menu-list-my").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
-            $(this).parent().addClass("active");            
+            $(this).parent().addClass("active");
+            $('.button-collapse').sideNav('hide');            
             app.listMyFrame.init();
         });
         $("#menu-list-all").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
+            $('.button-collapse').sideNav('hide');
             app.listAllFrame.init();
         });
         $("#menu-list-history").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
-            $(this).parent().addClass("active");           
+            $(this).parent().addClass("active");
+            $('.button-collapse').sideNav('hide');           
             app.listHistoryFrame.init();
         });
         $("#menu-new").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
+            $('.button-collapse').sideNav('hide');
             app.newFrame.init();
         });
         $("#menu-logout").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
+            $('.button-collapse').sideNav('hide');
             app.user.logout();
         });
     },
@@ -95,12 +102,18 @@ app.searchFrame = {
     _count: 1,
 
     init: function() {
-        app.mainFrame.load('lib/searchFrame.html', function() {
-            $('#refresh').click(function() {
+        app.mainFrame.load('lib/searchFrame.html', function () {
+            $('#refresh').click(function () {
                 app.searchFrame.destroy();
                 app.searchFrame.init();
             });
             app.searchFrame.alertCount();
+            $.getJSON("API/test.php", {
+                isbn: {isbn: 12345} ,
+                shuzu: [{color: 1},{color: 2}]
+            }, function (data) {
+                alert(data);
+            });
         });
     },
     destroy: function() {
@@ -136,7 +149,8 @@ app.borrowFrame= {
 //在app.borrowFrame名称空间下定义类BookCard
 app.borrowFrame.BookCard = function(property) {
     var _this = this;     //在一些jquery绑定的函数中this指像jquery的dom对象
-    this.count = property.isbn13;
+    this.isbn = property.isbn13;
+    this.amount = property.amount;
     this.card = $("#default-book-card").clone();
     this.card.find(".book-image").attr("src", property.images.large);
     this.card.find(".book-title").html(property.title);
@@ -147,15 +161,19 @@ app.borrowFrame.BookCard = function(property) {
     this.card.find(".book-location").html(property.location);
     this.card.find(".book-borrow").attr("isbn", property.isbn13);
     this.card.find(".book-borrow").click(function() {
-        //alert("ISBN: " + $(this).attr("isbn"));
-        alert("count: " + _this.count);
-        _this.borrow($(this).attr("isbn") + "0");
+        _this.borrow();
     });
     this.card.show();
 }
-app.borrowFrame.BookCard.prototype.borrow = function(bookUID) {
-    alert("Borrow " + bookUID);
-    alert("Count in borrow: " + this.count);
+app.borrowFrame.BookCard.prototype.borrow = function() {
+    if (this.amount > 1) {
+        var num = prompt("请输入书籍编号（见扉页）：","0");
+        if (num == null) {
+            return;
+        }
+        alert(num);
+    }
+    alert("Borrow: " + this.isbn + "0");
 }
 app.borrowFrame.BookCard.prototype.destroy = function() {
     this.card.remove();
