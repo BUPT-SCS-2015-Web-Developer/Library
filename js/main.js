@@ -218,7 +218,9 @@ app.borrowFrame.BookCard.prototype.destroy = function() {
 
 app.listMyFrame = {
     init: function() {
-
+        app.mainFrame.load("lib/listMyFrame.html", function() {
+            
+        });
     }
 };
 app.listAllFrame = app.searchFrame;
