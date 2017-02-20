@@ -45,37 +45,43 @@ app.nav = {
     init: function() {
         $(".button-collapse").sideNav();
         $("#menu-dashboard").click(function() {
-            app.dashboardFrame.init();
             $('.button-collapse').sideNav('hide');
+            $("#frame-title").html("北邮易班图书馆");
+            app.dashboardFrame.init();
         });
         $("#menu-borrow").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
             $('.button-collapse').sideNav('hide');
+            $("#frame-title").html("借书");
             app.borrowFrame.init();
         });
         $("#menu-list-my").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
-            $('.button-collapse').sideNav('hide');            
+            $('.button-collapse').sideNav('hide'); 
+            $("#frame-title").html("已借书籍");           
             app.listMyFrame.init();
         });
         $("#menu-list-all").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
             $('.button-collapse').sideNav('hide');
+            $("#frame-title").html("全部借阅信息");
             app.listAllFrame.init();
         });
         $("#menu-list-history").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
-            $('.button-collapse').sideNav('hide');           
+            $('.button-collapse').sideNav('hide');   
+            $("#frame-title").html("历史记录");        
             app.listHistoryFrame.init();
         });
         $("#menu-new").click(function() {
             $(this).parent().siblings(".active").removeClass("active");
             $(this).parent().addClass("active");
             $('.button-collapse').sideNav('hide');
+            $("#frame-title").html("录入");
             app.newFrame.init();
         });
         $("#menu-logout").click(function() {
@@ -131,7 +137,6 @@ app.borrowFrame = {
     init: function() {
         app.mainFrame.load("lib/borrowFrame.html", function() {
             $('.modal').modal();
-            $("#frame-title").html("借书");
             $("#search-button").click(function() {
                 $("#search-button").hide();
                 $("#search-preloder").show();
