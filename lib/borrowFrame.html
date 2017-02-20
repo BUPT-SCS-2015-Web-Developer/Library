@@ -1,3 +1,32 @@
+<div id="book-borrow-dialog" class="modal" style="width: 300px;">
+    <div class="modal-content">
+        <h4 id="book-borrow-dialog-title">请输入书籍编号</h4>
+        <p>位于书籍扉页</p>
+        <div class="input-field">
+            <input id="book-borrow-dialog-num" type="tel" class="validate" pattern="\d">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a id="book-borrow-dialog-confirm-preloder" href="#!" class="btn-flat">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a id="book-borrow-dialog-confirm-done" href="#!" class="modal-close btn-flat"><i class="material-icons">done</i></a>
+        <a id="book-borrow-dialog-confirm" href="#!" class="modal-action waves-effect btn-flat">确认</a>
+        <a id="book-borrow-dialog-cancel" href="#!" class="modal-action modal-close btn-flat waves-effect">取消</a>
+    </div>
+</div>
 <div>
     <div class="row">
     </div>
@@ -39,6 +68,22 @@
                 </div>
                 <div class="card-action">
                     <a href="#!" class="book-borrow" isbn="1234567890">借书</a>
+                    <a href="#!" class="book-card-borrow-preloder">
+                        <div class="preloader-wrapper small active">
+                            <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#!" class="book-card-borrow-done"><i class="material-icons">done</i></a>
                     <a href="#!"><i class="material-icons right activator black-text">more_vert</i></a>
                 </div>
                 <div class="card-reveal">
@@ -60,7 +105,7 @@
         </div>
         <div class="col s12 m6 grey-text text-darken-1">
             <h5>借阅说明</h5>
-            <p>借出工作站需要在这个系统里登记。</br>每本书可以借出XX天。为方便大家借书请看完后尽快归还。</br>每个人最多可同时借X本书。</p>
+            <p>借出工作站需要在这个系统里登记。</br>每本书可以借出30天。为方便大家借书请看完后尽快归还。</br>每个人最多可同时借3本书。</p>
         </div>
     </div>
 </div>

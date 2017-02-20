@@ -130,6 +130,7 @@ app.borrowFrame= {
     bookCard: [],
     init: function() {
         app.mainFrame.load("lib/borrowFrame.html", function() {
+            $('.modal').modal();
             $("#search-button").click(function() {
                 $("#search-button").hide();
                 $("#search-preloder").show();
@@ -163,17 +164,47 @@ app.borrowFrame.BookCard = function(property) {
     this.card.find(".book-borrow").click(function() {
         _this.borrow();
     });
+    this.card.find(".book-card-borrow-preloder").hide();
+    this.card.find(".book-card-borrow-done").hide();
     this.card.show();
 }
 app.borrowFrame.BookCard.prototype.borrow = function() {
-    if (this.amount > 1) {
-        var num = prompt("请输入书籍编号（见扉页）：","0");
-        if (num == null) {
-            return;
-        }
-        alert(num);
+    var _this = this;
+    if (_this.amount > 1) {
+        $('#book-borrow-dialog-confirm-done').hide();
+        $('#book-borrow-dialog-confirm-preloder').hide();
+        $('#book-borrow-dialog').modal('open');
+        $('#book-borrow-dialog-confirm').click(function() {
+            if ($('#book-borrow-dialog-num').hasClass("valid")) {
+                $('#book-borrow-dialog-confirm').hide();
+                $('#book-borrow-dialog-cancel').hide();
+                $('#book-borrow-dialog-confirm-preloder').show();
+                $.getJSON("API/borrow.php", {bookUID: _this.isbn + $('#book-borrow-dialog-num').val()}, function(data) {
+                    if (data.result == "succeed") {
+                        $('#book-borrow-dialog-confirm-preloder').hide();
+                        $('#book-borrow-dialog-confirm-done').show();
+                    } else {
+                        $('#book-borrow-dialog-confirm-preloder').hide();
+                        $('#book-borrow-dialog-cancel').show();
+                        Materialize.toast(data.result, 3000);
+                    }
+                });
+            }
+        });
+    } else {
+        _this.card.find(".book-borrow").hide();
+        _this.card.find(".book-card-borrow-preloder").show();
+        $.getJSON("API/borrow.php", {bookUID: _this.isbn + "0"}, function(data) {
+            if (data.result == "succeed") {
+                _this.card.find(".book-card-borrow-preloder").hide();
+                _this.card.find(".book-card-borrow-done").show();
+            } else {
+                _this.card.find(".book-card-borrow-preloder").hide();
+                _this.card.find(".book-borrow").show();
+                Materialize.toast(data.result, 2000);
+            }
+        });
     }
-    alert("Borrow: " + this.isbn + "0");
 }
 app.borrowFrame.BookCard.prototype.destroy = function() {
     this.card.remove();
