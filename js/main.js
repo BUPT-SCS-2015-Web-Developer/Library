@@ -126,11 +126,12 @@ app.searchFrame = {
     }
 }
 app.dashboardFrame= app.searchFrame;
-app.borrowFrame= {
+app.borrowFrame = {
     bookCard: [],
     init: function() {
         app.mainFrame.load("lib/borrowFrame.html", function() {
             $('.modal').modal();
+            $("#frame-title").html("借书");
             $("#search-button").click(function() {
                 $("#search-button").hide();
                 $("#search-preloder").show();
@@ -210,10 +211,14 @@ app.borrowFrame.BookCard.prototype.destroy = function() {
     this.card.remove();
 }
 
-app.listMyFrame= app.searchFrame;
-app.listAllFrame= app.searchFrame;
-app.listHistoryFrame= app.searchFrame;
-app.newFrame= app.searchFrame;
+app.listMyFrame = {
+    init: function() {
+
+    }
+};
+app.listAllFrame = app.searchFrame;
+app.listHistoryFrame = app.searchFrame;
+app.newFrame = app.searchFrame;
 
 $(document).ready(function() {
     //保证该js只由main.html引用，只由main.html加载完时执行此处代码。
