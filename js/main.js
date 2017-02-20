@@ -217,12 +217,33 @@ app.borrowFrame.BookCard.prototype.destroy = function() {
 }
 
 app.listMyFrame = {
+    bookCard: [],
     init: function() {
         app.mainFrame.load("lib/listMyFrame.html", function() {
-            
+            $.getJSON("API/listMy.php", function(data) {
+                if (data.result == "succeed") {
+                    for (i in data.books) {
+                        app.listMyFrame.bookCard[i] = new app.listMyFrame.BookCard(data.books[i]);
+                        $("#book-container").append(app.listMyFrame.bookCard[i].card);
+                    }
+                }
+            });
         });
     }
 };
+app.listMyFrame.BookCard = function(property) {
+    this.card = $("#default-book-card").clone();
+    this.card.find(".book-image").attr("src", property.images.large);
+    this.card.find(".book-title").html(property.title);
+    this.card.find(".book-author").html(property.author.join('、'));
+    this.card.find(".book-tags").html('<div class="chip">' + property.tags.join('</div><div class="chip">') + '</div>');
+    this.card.find(".book-pubdate").html(property.pubdate);
+    this.card.find(".book-summary").html(property.summary);
+    this.card.find(".book-location").html(property.location);
+    this.card.find(".book-rest").html(property.rest);
+    this.card.show();
+}
+
 app.listAllFrame = app.searchFrame;
 app.listHistoryFrame = app.searchFrame;
 app.newFrame = app.searchFrame;
