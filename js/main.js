@@ -1,4 +1,9 @@
 var app = {};
+app.config = {
+    domain = 'linkin.local/Library/',
+    protocal = 'https'
+}
+
 app.mainFrame = $('main');
 app.init = function() {
     //各类／Frame负责绑定自己页面上的元素事件。
@@ -9,6 +14,10 @@ app.init = function() {
     app.user.checkAuth(function() {
         app.nav.update();
     });
+}
+app.getURL = function(url) {
+    //调用API时URL务必使用这个函数保证本地化时可用
+    return app.config.protocal + '://' + app.config.domain + url;
 }
 
 app.user = {
@@ -24,7 +33,7 @@ app.user = {
         app.user._admin = admin;
     },
     checkAuth: function(callback) {
-        $.getJSON("API/checkAuth.php", function(data) {
+        $.getJSON(app.getURL("API/checkAuth.php"), function(data) {
             if (data.result == "succeed") {
                 app.user.id = data.userID;
                 app.user.name = data.userName;
@@ -32,12 +41,12 @@ app.user = {
                 app.user.setAdmin(data.isAdmin);
                 callback();
             } else {
-                window.location.href = "API/authorize.php";
+                window.location.href = app.getURL("API/authorize.php");
             }
         });
     },
     logout: function() {
-        window.location.href = "API/revoke.php";
+        window.location.href = app.getURL("API/revoke.php");
     }
 }
 app.nav = {
@@ -140,7 +149,7 @@ app.borrowFrame = {
             $("#search-button").click(function() {
                 $("#search-button").hide();
                 $("#search-preloder").show();
-                $.getJSON("API/isbn.php", {isbn: $("#isbn").val()}, function(data) {
+                $.getJSON(app.getURL("API/isbn.php"), {isbn: $("#isbn").val()}, function(data) {
                     if (data.result == "succeed") {
                         $("#isbn-card").hide();
                         for (i in data.books) {
@@ -185,7 +194,7 @@ app.borrowFrame.BookCard.prototype.borrow = function() {
                 $('#book-borrow-dialog-confirm').hide();
                 $('#book-borrow-dialog-cancel').hide();
                 $('#book-borrow-dialog-confirm-preloder').show();
-                $.getJSON("API/borrow.php", {bookUID: _this.isbn + $('#book-borrow-dialog-num').val()}, function(data) {
+                $.getJSON(app.getURL("API/borrow.php"), {bookUID: _this.isbn + $('#book-borrow-dialog-num').val()}, function(data) {
                     if (data.result == "succeed") {
                         $('#book-borrow-dialog-confirm-preloder').hide();
                         $('#book-borrow-dialog-confirm-done').show();
@@ -200,7 +209,7 @@ app.borrowFrame.BookCard.prototype.borrow = function() {
     } else {
         _this.card.find(".book-borrow").hide();
         _this.card.find(".book-card-borrow-preloder").show();
-        $.getJSON("API/borrow.php", {bookUID: _this.isbn + "0"}, function(data) {
+        $.getJSON(app.getURL("API/borrow.php"), {bookUID: _this.isbn + "0"}, function(data) {
             if (data.result == "succeed") {
                 _this.card.find(".book-card-borrow-preloder").hide();
                 _this.card.find(".book-card-borrow-done").show();
@@ -220,7 +229,7 @@ app.listMyFrame = {
     bookCard: [],
     init: function() {
         app.mainFrame.load("lib/listMyFrame.html", function() {
-            $.getJSON("API/listMy.php", function(data) {
+            $.getJSON(app.getURL("API/listMy.php"), function(data) {
                 if (data.result == "succeed") {
                     for (i in data.books) {
                         app.listMyFrame.bookCard[i] = new app.listMyFrame.BookCard(data.books[i]);
@@ -244,7 +253,9 @@ app.listMyFrame.BookCard = function(property) {
     this.card.show();
 }
 
-app.listAllFrame = app.searchFrame;
+app.listAllFrame = {
+
+};
 app.listHistoryFrame = app.searchFrame;
 app.newFrame = app.searchFrame;
 
