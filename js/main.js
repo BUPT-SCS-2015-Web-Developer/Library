@@ -297,12 +297,15 @@ app.listAllFrame = {
                         tempRow = $("#sample-row").clone()
                         tempRow.removeAttr("id");
                         tempRow.find(".book").html(data.data[i].title);
-                        tempRow.find(".book").attr("href", "?page=listHistory&isbn=" + data.data[i].isbn);
+                        tempRow.attr("isbn", data.data[i].isbn);
                         tempRow.find(".borrower").html(data.data[i].borrower);
                         tempRow.find(".borrow-date").html(data.data[i].borrowDate);
                         tempRow.find(".due-date").html(data.data[i].dueDate);
                         tempRow.show();
                         $("tbody").append(tempRow);
+                        tempRow.click(function() {
+                            location.href = "?page=listHistory&isbn=" + tempRow.attr("isbn");
+                        });
                     }
                 }
             });
