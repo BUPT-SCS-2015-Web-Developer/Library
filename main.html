@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable = no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable = no" />
     <title>北邮易班图书馆</title>
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,11 +13,14 @@
 
     <link href="css/icon.css" rel="stylesheet">
     <link href="css/icomoon.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
     <style type="text/css">
-        header, main, footer {
-          padding-left: 300px;
+        header,
+        main,
+        footer {
+            padding-left: 300px;
         }
+        
         .side-nav .logo {
             margin-top: 32px;
             margin-bottom: 32px;
@@ -25,29 +29,35 @@
             width: 100%;
             height: 80px;
         }
-.side-nav .logo a:hover {
-    background-color: rgba(255,255,255,0.00);
-}
+        
+        .side-nav .logo a:hover {
+            background-color: rgba(255, 255, 255, 0.00);
+        }
+        
         .side-nav .logo .brand-logo {
             font-size: 80px;
             line-height: 80px;
             width: 100%;
             height: 80px;
         }
-body {
-    background-color: #FAFAFA;
-}
-main {
-    min-height: 90vh;
-}
-
-        @media only screen and (max-width : 992px) {
-          header, main, footer {
-            padding-left: 0;
-          }
-main {
-    min-height: 80vh;
-}
+        
+        body {
+            background-color: #FAFAFA;
+        }
+        
+        main {
+            min-height: 90vh;
+        }
+        
+        @media only screen and (max-width: 992px) {
+            header,
+            main,
+            footer {
+                padding-left: 0;
+            }
+            main {
+                min-height: 80vh;
+            }
         }
     </style>
 </head>
@@ -55,19 +65,24 @@ main {
 <body>
     <header>
         <div class="navbar-fixed hide-on-large-only">
-        <nav class="">
-            <div class="nav-wrapper"> 
-                <a href="#" data-activates="menu" class="button-collapse"><i class="material-icons">menu</i></a>
-                <a id="back" hidden><i class="material-icons">chevron_left</i></a>
-                <ul class="left hide-on-large-only">
-                    <li id="frame-title">北邮易班图书馆</li>
-                </ul>
-            </div>
-        </nav>
+            <nav class="">
+                <div class="nav-wrapper">
+                    <a href="#" data-activates="menu" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <a id="back" hidden><i class="material-icons">chevron_left</i></a>
+                    <ul class="left hide-on-large-only">
+                        <li id="frame-title">北邮易班图书馆</li>
+                    </ul>
+                </div>
+            </nav>
         </div>
         <ul class="side-nav fixed" id="menu">
-            <li class="logo"><a id="menu-dashboard" href="#" class="brand-logo cyan-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Dashboard"><span class="icon-books"></span></a></li>
-            <li class="progress" id="menu-progress" style="visibility: hidden"><div class="indeterminate"></div></li>
+            <li class="logo">
+                <a id="menu-dashboard" href="#" class="brand-logo cyan-text tooltipped" data-position="bottom" data-delay="50"
+                    data-tooltip="Dashboard"><span class="icon-books"></span></a>
+            </li>
+            <li class="progress" id="menu-progress" style="visibility: hidden">
+                <div class="indeterminate"></div>
+            </li>
             <li><a id="menu-borrow" class="waves-effect" href="#">借书</a></li>
             <li><a id="menu-list-my" class="waves-effect" href="#">已借书籍</a></li>
             <li class="menu-admin" hidden><a class="subheader" href="#">查看借阅信息</a></li>
@@ -85,13 +100,14 @@ main {
     <footer>
         <div class="footer-copyright">
             <div class="container center grey-text text-lighten-1">
-            Made by /Bin @ BUPTYiBan
+                Made by /Bin @ BUPTYiBan
             </div>
         </div>
     </footer>
 
-<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
+
 </html>

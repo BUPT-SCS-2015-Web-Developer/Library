@@ -1,7 +1,7 @@
 var app = {};
 app.config = {
-    domain = 'linkin.local/Library/',
-    protocal = 'https'
+    domain: 'linkin.local/Library/',
+    protocal: 'http'
 }
 
 app.mainFrame = $('main');
@@ -254,7 +254,11 @@ app.listMyFrame.BookCard = function(property) {
 }
 
 app.listAllFrame = {
+    init: function() {
+        app.mainFrame.load("lib/listAllFrame.html", function() {
 
+        });
+    }
 };
 app.listHistoryFrame = app.searchFrame;
 app.newFrame = app.searchFrame;
