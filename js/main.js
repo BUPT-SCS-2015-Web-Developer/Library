@@ -256,7 +256,26 @@ app.listMyFrame.BookCard = function(property) {
 app.listAllFrame = {
     init: function() {
         app.mainFrame.load("lib/listAllFrame.html", function() {
-
+            $.getJSON(app.getURL("API/listAll.php"), function(data) {
+                if (data.result == "succeed") {
+                    if (data.data.length == 0) {
+                        return;
+                    }
+                    $("#default").hide();
+                    var tempRow;
+                    for (i in data.data) {
+                        tempRow = $("#sample-row").clone()
+                        tempRow.removeAttr("id");
+                        tempRow.find(".book").html(data.data[i].title);
+                        tempRow.find(".book").attr("href", "?page=listHistory&isbn=" + data.data[i].isbn);
+                        tempRow.find(".borrower").html(data.data[i].borrower);
+                        tempRow.find(".borrow-date").html(data.data[i].borrowDate);
+                        tempRow.find(".due-date").html(data.data[i].dueDate);
+                        tempRow.show();
+                        $("tbody").append(tempRow);
+                    }
+                }
+            });
         });
     }
 };

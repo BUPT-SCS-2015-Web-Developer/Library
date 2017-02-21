@@ -1,7 +1,7 @@
-<table class="highlight" style="margin-top: 20px;">
+<table class="highlight" style="margin-top: 10px; line-height: 50px;">
     <thead>
         <tr class="row">
-            <th class="col s6">书名</th>
+            <th class="col s6" style="padding-left: 50px">书名</th>
             <th class="col s2">借阅者</th>
             <th class="col s2">借出时间</th>
             <th class="col s2">最晚归还时间</th>
@@ -9,21 +9,15 @@
     </thead>
 
     <tbody>
-        <tr class="row">
-            <td class="col s6">Re: 从零开始的异世界生活</td>
-            <td class="col s2">Eclair</td>
-            <td class="col s2">2017-02-17</td>
-            <td class="col s2">2017-03-17</td>
-        </tr>
-        <tr class="row">
-            <td class="col s6">Alan</td>
-            <td class="col s2">Jellybean</td>
-            <td class="col s2">$3.76</td>
-        </tr>
-        <tr class="row">
-            <td class="col s6">Jonathan</td>
-            <td class="col s2">Lollipop</td>
-            <td class="col s2">$7.00</td>
+        <tr class="row" id="sample-row" hidden>
+            <td class="col s6" style="padding-left: 50px"><a href="#!" class="book" style="color: black">Re: 从零开始的异世界生活</a></td>
+            <td class="col s2 borrower">Eclair</td>
+            <td class="col s2 borrow-date">2017-02-17</td>
+            <td class="col s2 due-date">2017-03-17</td>
         </tr>
     </tbody>
 </table>
+<div id="default" class="center-align grey-text">
+    <h3>所有的书均已归位</h3>
+    <i class="material-icons" style="font-size: 400px">book</i>
+</div>
