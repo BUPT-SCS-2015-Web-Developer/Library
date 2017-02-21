@@ -137,6 +137,9 @@ app.nav = {
                 app.nav.openListHistory();
                 app.listHistoryFrame.open(query.isbn);
                 break;
+            default:
+                app.nav.openBorrow();
+                break;
         }
     }
 }

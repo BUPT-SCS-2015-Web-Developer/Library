@@ -49,6 +49,31 @@
             min-height: 90vh;
         }
         
+        @keyframes move-right {
+            0% {
+                left: 0px
+            }
+            25% {
+                left: 500px
+            }
+            25.1% {
+                left: -500px
+            }
+            75% {
+                left: 500px
+            }
+            75.1% {
+                left: -500px
+            }
+            100% {
+                left: 0px
+            }
+        }
+        
+        #waiting-animate {
+            animation: move-right 3s linear 0s infinite normal;
+        }
+        
         @media only screen and (max-width: 992px) {
             header,
             main,
@@ -77,8 +102,7 @@
         </div>
         <ul class="side-nav fixed" id="menu">
             <li class="logo">
-                <a id="menu-dashboard" href="#" class="brand-logo cyan-text tooltipped" data-position="bottom" data-delay="50"
-                    data-tooltip="Dashboard"><span class="icon-books"></span></a>
+                <a id="menu-dashboard" href="#" class="brand-logo cyan-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Dashboard"><span class="icon-books"></span></a>
             </li>
             <li class="progress" id="menu-progress" style="visibility: hidden">
                 <div class="indeterminate"></div>
@@ -93,9 +117,11 @@
         </ul>
     </header>
     <main>
-        <h1><span class="icon-books"></span>登陆测试</h1>
-        <input type="button" name="login" id="login" value="login" onClick="location.href='API/authorize.php'">
-        <input type="button" name="logout" id="logout" value="logout" onClick="location.href='API/revoke.php'">
+        <div class="center-align grey-text">
+            <h4>&nbsp</h4>
+            <h4>登陆中。。。</h4>
+            <i id="waiting-animate" class="material-icons" style="font-size: 200px; position: relative">motorcycle</i>
+        </div>
     </main>
     <footer>
         <div class="footer-copyright">
