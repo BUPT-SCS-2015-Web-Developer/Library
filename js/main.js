@@ -291,6 +291,7 @@ app.listAllFrame = {
             $.getJSON(app.getURL("API/listAll.php"), function (data) {
                 if (data.result == "succeed") {
                     $("#preloder").hide();
+                    $("#sample-row").hide();
                     if (data.data.length == 0) {
                         $("#no-book").show();
                         return;
