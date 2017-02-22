@@ -175,6 +175,7 @@ app.borrowFrame = {
     bookCard: [],
     init: function () {
         app.mainFrame.load("lib/borrowFrame.html", function () {
+            $("#search-preloder").parent().hide();
             $('.modal').modal();
             $("#search-button").click(function () {
                 $("#search-button").hide();
@@ -315,13 +316,30 @@ app.listAllFrame = {
     }
 };
 app.listHistoryFrame = {
+    _bookUID: "",
     init: function () {
         app.mainFrame.load("lib/listHistoryFrame.html", function () {
+            app.listHistoryFrame.frameLoad = $.ajax("#");
+            if (app.listHistoryFrame.smallScreen()) {
+                $(".card-image").hide();
+            }
+            $("#more").click(function () {
+                if (app.listHistoryFrame.smallScreen()) {
+                    $(".card-image").toggle(500)
+                }
+            });
 
+            if (app.listHistoryFrame._bookUID != "") {
+                $("#bookUID").val(app.listHistoryFrame._bookUID);
+                Materialize.updateTextFields();
+            }
         })
     },
-    open: function (isbn) {
-        alert(isbn);
+    open: function (bookUID) {
+        app.listHistoryFrame._bookUID = bookUID;
+    },
+    smallScreen: function () {
+        return $("#flag").css("display") == "none";
     }
 };
 app.newFrame = app.searchFrame;

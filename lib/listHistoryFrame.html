@@ -1,14 +1,14 @@
-<div class="row">
+<div id="flag" class="row hide-on-small-only">
 </div>
 <div class="row">
-    <div id="default-book-card" class="col s12 m6">
+    <div id="book-card" class="col s12 m6">
         <div class="card sticky-action hoverable">
             <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator book-image" src="images/book.jpg">
             </div>
             <div class="card-action">
-                <span>剩余时间 </span><span class="book-rest">30</span><span>天</span>
-                <a href="#!"><i class="material-icons right activator black-text">more_vert</i></a>
+                <input placeholder="bookUID" id="bookUID" type="tel" class="validate" pattern="\d{14}" style="width: 200px; height: auto; margin: auto">
+                <a id="more" href="#!"><i class="material-icons right activator black-text">more_vert</i></a>
             </div>
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4"><span class="book-title">书名</span><i class="material-icons right">close</i></span>
