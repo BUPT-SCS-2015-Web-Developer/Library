@@ -86,47 +86,48 @@ app.nav = {
         app.nav._progress.css("visibility", "hidden");
     },
     openDashboard: function () {
+        $("#menu-dashboard").parent().siblings(".active").removeClass("active");
         $('.button-collapse').sideNav('hide');
         $("#frame-title").html("北邮易班图书馆");
         app.dashboardFrame.init();
     },
     openBorrow: function () {
-        $(this).parent().siblings(".active").removeClass("active");
-        $(this).parent().addClass("active");
+        $("#menu-borrow").parent().siblings(".active").removeClass("active");
+        $("#menu-borrow").parent().addClass("active");
         $('.button-collapse').sideNav('hide');
         $("#frame-title").html("借书");
         app.borrowFrame.init();
     },
     openListMy: function () {
-        $(this).parent().siblings(".active").removeClass("active");
-        $(this).parent().addClass("active");
+        $("#menu-list-my").parent().siblings(".active").removeClass("active");
+        $("#menu-list-my").parent().addClass("active");
         $('.button-collapse').sideNav('hide');
         $("#frame-title").html("已借书籍");
         app.listMyFrame.init();
     },
     openListAll: function () {
-        $(this).parent().siblings(".active").removeClass("active");
-        $(this).parent().addClass("active");
+        $("#menu-list-all").parent().siblings(".active").removeClass("active");
+        $("#menu-list-all").parent().addClass("active");
         $('.button-collapse').sideNav('hide');
         $("#frame-title").html("全部借阅信息");
         app.listAllFrame.init();
     },
     openListHistory: function () {
-        $(this).parent().siblings(".active").removeClass("active");
-        $(this).parent().addClass("active");
+        $("#menu-list-history").parent().siblings(".active").removeClass("active");
+        $("#menu-list-history").parent().addClass("active");
         $('.button-collapse').sideNav('hide');
         $("#frame-title").html("历史记录");
         app.listHistoryFrame.init();
     },
     openNew: function () {
-        $(this).parent().siblings(".active").removeClass("active");
-        $(this).parent().addClass("active");
+        $("#menu-new").parent().siblings(".active").removeClass("active");
+        $("#menu-new").parent().addClass("active");
         $('.button-collapse').sideNav('hide');
         $("#frame-title").html("录入");
         app.newFrame.init();
     },
     openLogout: function () {
-        $(this).parent().siblings(".active").removeClass("active");
+        $("#menu-logout").parent().siblings(".active").removeClass("active");
         $('.button-collapse').sideNav('hide');
         app.user.logout();
     },
@@ -299,7 +300,7 @@ app.listAllFrame = {
                         tempRow = $("#sample-row").clone()
                         tempRow.removeAttr("id");
                         tempRow.find(".book").html(data.data[i].title);
-                        tempRow.attr("isbn", data.data[i].isbn);
+                        tempRow.attr("bookUID", data.data[i].bookUID);
                         tempRow.find(".borrower").html(data.data[i].borrower);
                         tempRow.find(".borrow-date").html(data.data[i].borrowDate);
                         tempRow.find(".due-date").html(data.data[i].dueDate);
@@ -307,7 +308,7 @@ app.listAllFrame = {
                         $("tbody").append(tempRow);
                         tempRow.click(function () {
                             app.nav.openListHistory();
-                            app.listHistoryFrame.open(tempRow.attr("isbn"));
+                            app.listHistoryFrame.open(tempRow.attr("bookUID"));
                         });
                     }
                 }
