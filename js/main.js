@@ -288,10 +288,11 @@ app.listAllFrame = {
         app.mainFrame.load("lib/listAllFrame.html", function () {
             $.getJSON(app.getURL("API/listAll.php"), function (data) {
                 if (data.result == "succeed") {
+                    $("#preloder").hide();
                     if (data.data.length == 0) {
+                        $("#no-book").show();
                         return;
                     }
-                    $("#default").hide();
                     var tempRow;
                     for (i in data.data) {
                         tempRow = $("#sample-row").clone()
