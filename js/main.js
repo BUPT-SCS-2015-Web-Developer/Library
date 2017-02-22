@@ -303,8 +303,9 @@ app.listAllFrame = {
                         tempRow.find(".due-date").html(data.data[i].dueDate);
                         tempRow.show();
                         $("tbody").append(tempRow);
-                        tempRow.click(function() {
-                            location.href = "?page=listHistory&isbn=" + tempRow.attr("isbn");
+                        tempRow.click(function () {
+                            app.nav.openListHistory();
+                            app.listHistoryFrame.open(tempRow.attr("isbn"));
                         });
                     }
                 }
@@ -313,7 +314,11 @@ app.listAllFrame = {
     }
 };
 app.listHistoryFrame = {
-    init: function () { },
+    init: function () {
+        app.mainFrame.load("lib/listHistoryFrame.html", function () {
+
+        })
+    },
     open: function (isbn) {
         alert(isbn);
     }
