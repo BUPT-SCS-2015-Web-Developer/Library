@@ -321,26 +321,56 @@ app.listHistoryFrame = {
     _bookUID: "",
     init: function () {
         app.mainFrame.load("lib/listHistoryFrame.html", function () {
-            app.listHistoryFrame.frameLoad = $.ajax("#");
-            if (app.listHistoryFrame.smallScreen()) {
+            if (app.listHistoryFrame._smallScreen()) {
                 $(".card-image").hide();
             }
             $("#more").click(function () {
-                if (app.listHistoryFrame.smallScreen()) {
+                if (app.listHistoryFrame._smallScreen()) {
                     $(".card-image").toggle(500)
                 }
             });
+            $("table").hide();
+            $("#preloder").hide();
+            $("#no-history").hide();
+            $("#sample-row").hide();
 
             if (app.listHistoryFrame._bookUID != "") {
                 $("#bookUID").val(app.listHistoryFrame._bookUID);
                 Materialize.updateTextFields();
+                app.listHistoryFrame._load();
             }
         })
     },
     open: function (bookUID) {
         app.listHistoryFrame._bookUID = bookUID;
     },
-    smallScreen: function () {
+
+    _load: function () {
+        $("#default").hide();
+        $("#preloder").show();
+        $.getJSON(app.getURL("API/history.php"), { bookUID: app.listHistoryFrame._bookUID }, function (data) {
+            if (data.result != "succeed") {
+                return;
+            }
+            $("#preloder").hide();
+            if (data.data.length == 0) {
+                $("#no-history").show();
+                return;
+            }
+            $("table").show();
+            var tempRow;
+            for (i in data.data) {
+                tempRow = $("#sample-row").clone()
+                tempRow.removeAttr("id");
+                tempRow.find(".borrower").html(data.data[i].borrower);
+                tempRow.find(".borrow-date").html(data.data[i].borrowDate);
+                tempRow.find(".return-date").html(data.data[i].returnDate);
+                tempRow.show();
+                $("tbody").append(tempRow);
+            }
+        });
+    },
+    _smallScreen: function () {
         return $("#flag").css("display") == "none";
     }
 };

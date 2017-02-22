@@ -25,5 +25,45 @@
             </div>
         </div>
     </div>
-    <div id="book-container"></div>
+    <table class="highlight col s12 m6">
+        <thead>
+            <tr>
+                <th>借阅者</th>
+                <th>借出时间</th>
+                <th>归还时间</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr id="sample-row">
+                <td class="borrower">Eclair</td>
+                <td class="borrow-date">2017-02-17</td>
+                <td class="return-date">2017-03-17</td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="preloder" class="col s12 m6 center-align">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="no-history" class="col s12 m6 grey-text text-lighten-1 center-align">
+        <h4>还没有人借出这本书</h4>
+        <i class="material-icons" style="font-size: 300px">history</i>
+    </div>
+    <div id="default" class="col s12 m6 grey-text text-lighten-1 center-align">
+        <h4>输入书籍UID查询</h4>
+        <p>书籍UID由13位ISBN码加上一位书籍编号组成，书籍编号可以从扉页查找。</p>
+        <i class="material-icons" style="font-size: 300px">history</i>
+    </div>
 </div>
