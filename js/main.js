@@ -171,27 +171,54 @@ app.searchFrame = {
         app.searchFrame._count++;
     }
 }
-app.dashboardFrame = app.searchFrame;
+app.dashboardFrame = {
+    init: function () {
+        app.mainFrame.load("lib/dashboard.html", function () {
+            $("#search-preloder").hide();
+            $("#search-button").click(function () {
+                $("#search-button").hide();
+                $("#search-preloder").show();
+                app.nav.openBorrow();
+            });
+        })
+    }
+}
 app.borrowFrame = {
+    _isbn: "",
     bookCard: [],
     init: function () {
         app.mainFrame.load("lib/borrowFrame.html", function () {
             $("#search-preloder").parent().hide();
             $('.modal').modal();
             $("#search-button").click(function () {
+                if (!$("#isbn").hasClass("valid")) {
+                    return;
+                }
                 $("#search-button").hide();
                 $("#search-preloder").show();
-                $.getJSON(app.getURL("API/isbn.php"), { isbn: $("#isbn").val() }, function (data) {
-                    if (data.result == "succeed") {
-                        $("#isbn-card").hide();
-                        for (i in data.books) {
-                            app.borrowFrame.bookCard[i] = new app.borrowFrame.BookCard(data.books[i]);
-                            $("#book-container").append(app.borrowFrame.bookCard[i].card);
-                        }
-                    }
-                });
+                app.borrowFrame.setISBN($("#isbn").val());
+                app.borrowFrame._load();
             });
+
+            if (app.borrowFrame._isbn != "") {
+                app.borrowFrame.load();
+            }
         })
+    },
+    setISBN: function (isbn) {
+        app.borrowFrame._isbn = isbn;
+    },
+
+    _load: function () {
+        $.getJSON(app.getURL("API/isbn.php"), { isbn: app.borrowFrame._isbn }, function (data) {
+            if (data.result == "succeed") {
+                $("#isbn-card").hide();
+                for (i in data.books) {
+                    app.borrowFrame.bookCard[i] = new app.borrowFrame.BookCard(data.books[i]);
+                    $("#book-container").append(app.borrowFrame.bookCard[i].card);
+                }
+            }
+        });
     }
 }
 //在app.borrowFrame名称空间下定义类BookCard
