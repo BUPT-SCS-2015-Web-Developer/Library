@@ -174,12 +174,75 @@ app.searchFrame = {
 app.dashboardFrame = {
     init: function () {
         app.mainFrame.load("lib/dashboard.html", function () {
+            $("#hide-on-load").hide();
             $("#search-preloder").hide();
             $("#search-button").click(function () {
+                if (!$("#isbn").hasClass("valid")) {
+                    return;
+                }
                 $("#search-button").hide();
                 $("#search-preloder").show();
+                app.borrowFrame.setISBN($("#isbn").val());
                 app.nav.openBorrow();
             });
+            $.getJSON(app.getURL("API/statics.php"), function (data) {
+                if (data.result != "succeed") {
+                    return;
+                }
+                $("#preloder").hide();
+                $("#hide-on-load").show();
+
+                $("#data-today").html(data.data[29]);
+                var ctx = $("#data-month");
+                var xAxe = [];
+                for (i = 0; i < 30; i++) {
+                    xAxe[i] = moment().subtract(29 - i, 'd').format("YYYY-MM-DD");
+                }
+                var lineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: xAxe,
+                        datasets: [{
+                            data: data.data,//............没毛病
+                            label: "日借出量",
+                            fill: true,
+                            backgroundColor: "rgba(31, 188, 210, 0.3)",
+                            borderColor: "rgba(31, 188, 210, 0.5)"
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: "每日借出量"
+                        },
+                        scales: {
+                            xAxes: [{
+                                type: 'time',
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Date'
+                                },
+                                time: {
+                                    displayFormats: {
+                                        day: "YYYY-MM-DD"
+                                    }
+                                }
+                            }],
+                            yAxes: [{
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'value'
+                                }
+                            }]
+                        }
+                    }
+                });
+
+
+            })
         })
     }
 }
@@ -201,7 +264,7 @@ app.borrowFrame = {
             });
 
             if (app.borrowFrame._isbn != "") {
-                app.borrowFrame.load();
+                app.borrowFrame._load();
             }
         })
     },
