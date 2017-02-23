@@ -46,7 +46,7 @@
 				if (!empty($_SESSION['token'])) {
 					header('location: ' . $cfg['display']);
 				} else {
-					print_r("登陆失败");
+					print_r("跳转中。。。");
 				}
 			}
 			catch (YBException $ex) {

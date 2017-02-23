@@ -139,36 +139,9 @@ app.nav = {
                 app.listHistoryFrame.open(query.isbn);
                 break;
             default:
-                app.nav.openBorrow();
+                app.nav.openDashboard();
                 break;
         }
-    }
-}
-app.searchFrame = {
-    _count: 1,
-
-    init: function () {
-        app.mainFrame.load('lib/searchFrame.html', function () {
-            $('#refresh').click(function () {
-                app.searchFrame.destroy();
-                app.searchFrame.init();
-            });
-            app.searchFrame.alertCount();
-            $.getJSON("API/test.php", {
-                isbn: { isbn: 12345 },
-                shuzu: [{ color: 1 }, { color: 2 }]
-            }, function (data) {
-                alert(data);
-            });
-        });
-    },
-    destroy: function () {
-        alert("destroy " + (app.searchFrame._count - 1));
-        app.mainFrame.empty();
-    },
-    alertCount: function () {
-        alert("_count: " + app.searchFrame._count);
-        app.searchFrame._count++;
     }
 }
 app.dashboardFrame = {
@@ -487,7 +460,13 @@ app.listHistoryFrame = {
         return $("#flag").css("display") == "none";
     }
 };
-app.newFrame = app.searchFrame;
+app.newFrame = {
+    init: function () {
+        app.mainFrame.load("lib/newFrame.html", function () {
+
+        });
+    }
+}
 
 $(document).ready(function () {
     //保证该js只由main.html引用，只由main.html加载完时执行此处代码。
