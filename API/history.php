@@ -13,7 +13,7 @@
         },
         {
             "borrower": "Alita",
-            "borrowDate": "2017-02-1",
+            "borrowDate": "2017-02-2",
             "returnDate": "2017-02-29"
         },
         {

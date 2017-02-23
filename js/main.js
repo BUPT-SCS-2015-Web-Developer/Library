@@ -329,6 +329,13 @@ app.listHistoryFrame = {
                     $(".card-image").toggle(500)
                 }
             });
+            $("#search-button").click(function () {
+                if (!$("#bookUID").hasClass("valid")) {
+                    return;
+                }
+                app.listHistoryFrame._bookUID = $("#bookUID").val();
+                app.listHistoryFrame._load();
+            });
             $("table").hide();
             $("#preloder").hide();
             $("#no-history").hide();
@@ -342,12 +349,26 @@ app.listHistoryFrame = {
         })
     },
     open: function (bookUID) {
+        //必须和init一起使用，即和app.nav.openListHistory()一起使用
         app.listHistoryFrame._bookUID = bookUID;
     },
 
     _load: function () {
         $("#default").hide();
         $("#preloder").show();
+        $.getJSON(app.getURL("API/isbn.php"), { isbn: app.listHistoryFrame._bookUID.substr(0, 13) }, function (data) {
+            if (data.result != "succeed") {
+                return;
+            }
+            var card = $("#book-card");
+            card.find(".book-image").attr("src", data.books[0].images.large);
+            card.find(".book-title").html(data.books[0].title);
+            card.find(".book-author").html(data.books[0].author.join('、'));
+            card.find(".book-tags").html('<div class="chip">' + data.books[0].tags.join('</div><div class="chip">') + '</div>');
+            card.find(".book-pubdate").html(data.books[0].pubdate);
+            card.find(".book-summary").html(data.books[0].summary);
+            card.find(".book-location").html(data.books[0].location);
+        });
         $.getJSON(app.getURL("API/history.php"), { bookUID: app.listHistoryFrame._bookUID }, function (data) {
             if (data.result != "succeed") {
                 return;
@@ -358,9 +379,11 @@ app.listHistoryFrame = {
                 return;
             }
             $("table").show();
-            var tempRow;
+            var tempRow = $("#sample-row").clone();
+            $("tbody").empty();
+            $("tbody").append(tempRow);
             for (i in data.data) {
-                tempRow = $("#sample-row").clone()
+                tempRow = $("#sample-row").clone();
                 tempRow.removeAttr("id");
                 tempRow.find(".borrower").html(data.data[i].borrower);
                 tempRow.find(".borrow-date").html(data.data[i].borrowDate);
