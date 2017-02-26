@@ -1,10 +1,7 @@
 @font-face {
   font-family: 'icomoon';
   src:  url('../fonts/icomoon.eot?edzd06');
-  src:  url('../fonts/icomoon.eot?edzd06#iefix') format('embedded-opentype'),
-    url('../fonts/icomoon.ttf?edzd06') format('truetype'),
-    url('../fonts/icomoon.woff?edzd06') format('woff'),
-    url('../fonts/icomoon.svg?edzd06#icomoon') format('svg');
+  src:  url('../fonts/icomoon.woff?edzd06') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +21,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-barcode:before {
+  content: "\e900";
+}
 .icon-books:before {
   content: "\e920";
 }

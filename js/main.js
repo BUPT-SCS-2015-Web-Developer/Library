@@ -463,8 +463,33 @@ app.listHistoryFrame = {
 app.newFrame = {
     init: function () {
         app.mainFrame.load("lib/newFrame.html", function () {
-
+            $("#open-scanner").click(function () {
+                app.scanner.init(function(result) {
+                    $("#isbn").val(result);
+                    Materialize.updateTextFields();
+                });
+            });
         });
+    }
+}
+app.scanner = {
+    val: "",
+    init: function (callback) {
+        if ($("#scanner").length > 0) {
+            $("#scan-modal #code").html("");
+            $("#scan-modal img").attr("src", "");
+            $("#scan-modal").modal("open");
+        } else {
+            app.mainFrame.append('<div id="scanner"></div>');
+            $("#scanner").load("lib/scanner.html", function() {
+                $("#scan-modal").modal();
+                $("#scan-modal").modal("open");
+                $("#scan-confirm").click(function() {
+                    app.scanner.val = $("#code").html();
+                    callback(app.scanner.val);
+                });
+            })
+        }
     }
 }
 
