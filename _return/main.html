@@ -75,11 +75,17 @@
         </div>
     </div>
 
+    <script>
+        if (typeof module === 'object') { window.module = module; module = undefined; }
+    </script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/quagga.min.js"></script>
     <script type="text/javascript" src="js/scanner.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script>
+        if (window.module) module = window.module;
+    </script>
 </body>
 
 </html>
