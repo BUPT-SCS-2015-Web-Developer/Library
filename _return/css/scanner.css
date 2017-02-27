@@ -1,0 +1,144 @@
+#interactive.viewport {
+  width: 640px;
+  height: 480px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+/* line 6, ../sass/_viewport.scss */
+#interactive.viewport canvas, video {
+  float: left;
+  width: 640px;
+  height: 480px;
+}
+/* line 10, ../sass/_viewport.scss */
+#interactive.viewport canvas.drawingBuffer, video.drawingBuffer {
+  margin-left: -640px;
+}
+
+/* line 16, ../sass/_viewport.scss */
+.controls fieldset {
+  border: none;
+}
+/* line 19, ../sass/_viewport.scss */
+.controls .input-group {
+  float: left;
+}
+/* line 21, ../sass/_viewport.scss */
+.controls .input-group input, .controls .input-group button {
+  display: block;
+}
+/* line 25, ../sass/_viewport.scss */
+.controls .reader-config-group {
+  float: right;
+}
+/* line 28, ../sass/_viewport.scss */
+.controls .reader-config-group label {
+  display: block;
+}
+/* line 30, ../sass/_viewport.scss */
+.controls .reader-config-group label span {
+  width: 11rem;
+  display: inline-block;
+  text-align: right;
+}
+/* line 37, ../sass/_viewport.scss */
+.controls:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* line 44, ../sass/_viewport.scss */
+#result_strip {
+  margin: 10px 0;
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+  padding: 10px 0;
+}
+/* line 50, ../sass/_viewport.scss */
+#result_strip > ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  width: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+/* line 59, ../sass/_viewport.scss */
+#result_strip > ul > li {
+  display: inline-block;
+  vertical-align: middle;
+  width: 160px;
+}
+/* line 63, ../sass/_viewport.scss */
+#result_strip > ul > li .thumbnail {
+  padding: 5px;
+  margin: 4px;
+  border: 1px dashed #CCC;
+}
+/* line 68, ../sass/_viewport.scss */
+#result_strip > ul > li .thumbnail img {
+  max-width: 140px;
+}
+/* line 71, ../sass/_viewport.scss */
+#result_strip > ul > li .thumbnail .caption {
+  white-space: normal;
+}
+/* line 73, ../sass/_viewport.scss */
+#result_strip > ul > li .thumbnail .caption h4 {
+  text-align: center;
+  word-wrap: break-word;
+  height: 40px;
+  margin: 0px;
+}
+/* line 83, ../sass/_viewport.scss */
+#result_strip > ul:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 7, ../sass/_overlay.scss */
+.scanner-overlay {
+  display: none;
+  width: 640px;
+  height: 510px;
+  position: absolute;
+  padding: 20px;
+  top: 50%;
+  margin-top: -275px;
+  left: 50%;
+  margin-left: -340px;
+  background-color: #FFF;
+  -moz-box-shadow: #333333 0px 4px 10px;
+  -webkit-box-shadow: #333333 0px 4px 10px;
+  box-shadow: #333333 0px 4px 10px;
+}
+/* line 20, ../sass/_overlay.scss */
+.scanner-overlay > .header {
+  position: relative;
+  margin-bottom: 14px;
+}
+/* line 23, ../sass/_overlay.scss */
+.scanner-overlay > .header h4, .scanner-overlay > .header .close {
+  line-height: 16px;
+}
+/* line 26, ../sass/_overlay.scss */
+.scanner-overlay > .header h4 {
+  margin: 0px;
+  padding: 0px;
+}
+/* line 30, ../sass/_overlay.scss */
+.scanner-overlay > .header .close {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 16px;
+  width: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
