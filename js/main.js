@@ -461,14 +461,107 @@ app.listHistoryFrame = {
     }
 };
 app.newFrame = {
+    bookData: {},
     init: function () {
         app.mainFrame.load("lib/newFrame.html", function () {
+            $("#preloder").css("visibility", "hidden");
             $("#open-scanner").click(function () {
-                app.scanner.init(function(result) {
+                app.scanner.init(function (result) {
                     $("#isbn").val(result);
                     Materialize.updateTextFields();
                 });
             });
+            $("#search").click(function () {
+                if (!$("#isbn").val().match(/^\d{13}$/)) {
+                    Materialize.toast('请输入ISBN！', 4000);
+                    return;
+                }
+                $("#preloder").css("visibility", "visible");
+                $.getJSON(app.getURL("API/helper.php"), { isbn13: $("#isbn").val() }, function (data) {
+                    $("#enable-after-check").attr("style", "");
+                    $("#preloder").css("visibility", "hidden");
+                    if (data.msg == "book_not_found") {
+                        Materialize.toast('无法自动获取书籍信息，请手动填写。', 4000);
+                        return;
+                    }
+                    app.newFrame.bookData = data;
+                    $("#title").val(data.title);
+                    var chipArray = [];
+                    for (i in data.author) {
+                        chipArray[i] = { tag: data.author[i] }
+                    }
+                    $("#author").material_chip({
+                        data: chipArray,
+                        placeholder: '按回车增加作者',
+                        secondaryPlaceholder: '按回车增加作者'
+                    });
+                    chipArray = [];
+                    for (i in data.tags) {
+                        chipArray[i] = { tag: data.tags[i] };
+                    }
+                    $("#tags").material_chip({
+                        data: chipArray,
+                        placeholder: '+Tag',
+                        secondaryPlaceholder: 'Tag'
+                    });
+                    $("#pages").val(data.pages);
+                    $("#pubdate").val(data.pubdate);
+                    $("#price").val(data.price.split(" ")[1]);
+                    $("#publisher").val(data.publisher);
+                    $("#summary").val(data.summary);
+                    $("#book-cover").attr("src", data.images.large);
+                    Materialize.updateTextFields();
+                });
+            });
+            $("#submit").click(function () {
+                if ($("#amount").val() == "") {
+                    Materialize.toast('请填写数量', 4000);
+                    return;
+                }
+                if ($("#location").val() == "") {
+                    Materialize.toast('请填写位置', 4000);
+                    return;
+                }
+                app.newFrame.bookData.amount = $("#amount").val();
+                app.newFrame.bookData.location = $("#location").val();
+                var chipArray = $("#author").material_chip("data");
+                for (i in chipArray) {
+                    app.newFrame.bookData.author[i] = chipArray[i].tag;
+                }
+                chipArray = $("#tags").material_chip("data");
+                for (i in chipArray) {
+                    app.newFrame.bookData.tags[i] = chipArray[i].tag;
+                }
+                app.newFrame.bookData.pubdate = $("#pubdate").val();
+                app.newFrame.bookData.pages = $("#pages").val();
+                app.newFrame.bookData.publisher = $("#publisher").val();
+                app.newFrame.bookData.isbn13 = $("#isbn").val();
+                app.newFrame.bookData.title = $("#title").val();
+                app.newFrame.bookData.summary = $("#summary").val();
+                app.newFrame.bookData.price = $("#price").val();
+                $.post(app.getURL("API/newbook.php"), app.newFrame.bookData, function (data) {
+                    if (data.result == "succeed") {
+                        Materialize.toast('添加成功！', 4000);
+                    } else {
+                        Materialize.toast('添加失败！', 4000);
+                    }
+                }, "json");
+            });
+
+            $("#author").material_chip({
+                placeholder: '按回车增加作者',
+                secondaryPlaceholder: '按回车增加作者'
+            });
+            $("#tags").material_chip({
+                placeholder: '+Tag',
+                secondaryPlaceholder: 'Tag'
+            });
+            $(".datepicker").pickadate({
+                format: "yyyy-mm-dd",
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 100 // Creates a dropdown of 15 years to control year
+            });
+            Materialize.updateTextFields();
         });
     }
 }
@@ -481,10 +574,10 @@ app.scanner = {
             $("#scan-modal").modal("open");
         } else {
             app.mainFrame.append('<div id="scanner"></div>');
-            $("#scanner").load("lib/scanner.html", function() {
+            $("#scanner").load("lib/scanner.html", function () {
                 $("#scan-modal").modal();
                 $("#scan-modal").modal("open");
-                $("#scan-confirm").click(function() {
+                $("#scan-confirm").click(function () {
                     app.scanner.val = $("#code").html();
                     callback(app.scanner.val);
                 });
