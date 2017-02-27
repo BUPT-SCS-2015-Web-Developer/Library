@@ -80,7 +80,6 @@ Quagga.onDetected(function (result) {
     if (code.substr(0, 3) != "978") {
         return;
     }
-    $("#result").html(code);
     Quagga.stop();
     app.scanner.onDetected(code);
 });

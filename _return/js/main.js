@@ -7,6 +7,40 @@ app.config = {
 app.mainFrame = $('main');
 app.init = function () {
     //各类／Frame负责绑定自己页面上的元素事件。
+    $("#scan .nav").pushpin({
+        top: $("#scan").offset().top,
+        offset: 0
+    });
+    $("#confirm .nav").pushpin({
+        top: $("#confirm").offset().top,
+        offset: 64
+    });
+
+    $("#scan").click(function () {
+        app.scrollTo($("#scan"));
+    });
+    $("#confirm").click(function () {
+        app.scrollTo($("#confirm"));
+    });
+    $("#succeed").click(function () {
+        app.scrollTo($("#logo"));
+    });
+
+    $("#isbn").change(function () {
+        if ($("#isbn").val().match(/^\d{13}$/)) {
+            app.scrollTo($("#confirm"));
+        }
+    });
+    $("#submit").click(function () {
+        $.getJSON(app.getURL("API/return.php"), {bookUID: $("#isbn").val() + $("#num").val() }, function (data) {
+            if (data.result == "succeed") {
+                app.scrollTo($("#succeed"));
+                setTimeout(function() {
+                    app.scrollTo($("#logo"));
+                }, 10000);
+            }
+        });
+    });
 
     //检查登陆之后更新nav
     app.user.checkAuth(function () {
@@ -15,6 +49,10 @@ app.init = function () {
 app.getURL = function (url) {
     //调用API时URL务必使用这个函数保证本地化时可用
     return app.config.protocal + '://' + app.config.domain + url;
+}
+
+app.scrollTo = function (place) {
+    $("html,body").animate({scrollTop:place.offset().top},500);
 }
 
 app.user = {
@@ -51,7 +89,9 @@ app.scanner = {
     init: function () {
     },
     onDetected: function(result) {
-        alert(result);
+        $("#isbn").val(result);
+        Materialize.updateTextFields();
+        app.scrollTo($("#confirm"));
     }
 }
 

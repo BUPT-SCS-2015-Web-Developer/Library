@@ -9,72 +9,47 @@
     <link href="css/icon.css" rel="stylesheet">
     <link href="css/icomoon.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
-    <link href="css/scanner.css" rel="stylesheet">
-    <style type="text/css">
-        body {
-            background-color: #FAFAFA;
-        }
-        
-        html,
-        body,
-        .block {
-            height: 100%;
-        }
-        
-        .nav {
-            background-color: rgba(255, 255, 255, 0.3);
-            color: white;
-            height: 64px;
-            line-height: 64px;
-            font-size: 24px;
-        }
-        
-        .white-nav {
-            background-color: rgba(0, 0, 0, 0.1);
-            color: black;
-        }
-        
-        .nav p {
-            margin: 0;
-        }
-        
-        @media only screen and (max-width: 992px) {
-            header,
-            main,
-            footer {
-                padding-left: 0;
-            }
-            main {
-                min-height: 80vh;
-            }
-        }
-    </style>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="center-align">
+    <div id="logo" class="center-align">
         <h1 class="cyan-text center"><span class="icon-books"></span></h1>
         <h5 class="grey-text">北邮易班图书馆</h5>
         <h4>还书系统</h4>
     </div>
     <div id="scan" class="block center-align light-blue accent-3">
-        <div class="nav white-text">
+        <div class="nav light-blue accent-2 white-text">
             <p>1 扫描ISBN码</p>
         </div>
         <div id="interactive" class="viewport"></div>
-        <span id="result"></span>
+        <div class="row">
+            <div class="input-field col s6 m4 offset-m4">
+                <input id="isbn" type="tel" class="validate center-align" pattern="\d{13}">
+                <label for="isbn">手动输入ISBN</label>
+            </div>
+        </div>
     </div>
-    <div id="confirm" class="block center-align">
-        <div class="nav white-nav">
+    <div id="confirm" class="block center-align grey lighten-4">
+        <div class="nav grey lighten-2">
             <p>2 输入书籍编号</p>
         </div>
-        <h1 class="cyan-text"><span class="icon-books"></span></h1>
-
-        <div class="grey-text text-lighten-1">
-            Made by /Bin @ BUPTYiBan
+        <div style="height: 164px; width: 100%"></div>
+        <p>书籍编号位于扉页</p>
+        <div class="row">
+            <div class="input-field col s6 m4 offset-m4">
+                <input id="num" placeholder="0" type="tel" class="validate center-align" pattern="\d">
+            </div>
         </div>
+        <a id="submit" href="#!" class="btn">提交</a>
     </div>
-
+    <div id="succeed" class="block center-align orange white-text">
+        <div style="height: 164px; width: 100%"></div>
+        <i class="material-icons" style="font-size: 200px">check_circle</i>
+        <h3>还书成功</h3>
+        </br>
+        <div class="footer grey-text text-lighten-2">Made by /Bin @ BUPTYiBan</div>
+    </div>
     <script>
         if (typeof module === 'object') { window.module = module; module = undefined; }
     </script>

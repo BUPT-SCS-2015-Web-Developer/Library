@@ -142,3 +142,57 @@
   font-size: 14px;
   cursor: pointer;
 }
+
+body {
+    background-color: #FAFAFA;
+}
+        
+html,
+body,
+.block {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+        
+.nav {
+    height: 64px;
+    width: 100%;
+    line-height: 64px;
+    font-size: 24px;
+    z-index: 900;
+}
+        
+.nav p {
+    margin: 0;
+}
+
+
+/* label color */
+.input-field label {
+    color: white !important; 
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: white !important;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid white !important;
+    box-shadow: 0 1px 0 0 white !important;
+}
+/* valid color */
+.input-field input[type=text].valid {
+    border-bottom: 1px solid white !important;
+    box-shadow: 0 1px 0 0 white !important;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid red !important;
+    box-shadow: 0 1px 0 0 red !important;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: white !important;
+}
+
