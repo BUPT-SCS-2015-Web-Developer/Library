@@ -541,6 +541,10 @@ app.newFrame = {
                     Materialize.toast('请填写位置', 4000);
                     return;
                 }
+                if ($("#isbn").val() == "") {
+                    Materialize.toast('请填写ISBN', 4000);
+                    return;
+                }
                 app.newFrame.bookData.amount = $("#amount").val();
                 app.newFrame.bookData.location = $("#location").val();
                 var chipArray = $("#author").material_chip("data");
