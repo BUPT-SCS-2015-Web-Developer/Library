@@ -1,0 +1,114 @@
+<div id="book-borrow-dialog" class="modal" style="width: 300px;">
+    <div class="modal-content">
+        <h4 id="book-borrow-dialog-title">请输入书籍编号</h4>
+        <p>位于书籍扉页</p>
+        <div class="input-field">
+            <input id="book-borrow-dialog-num" type="tel" class="validate" pattern="\d">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a id="book-borrow-dialog-confirm-preloder" href="#!" class="btn-flat">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a id="book-borrow-dialog-confirm-done" href="#!" class="modal-close btn-flat"><i class="material-icons">done</i></a>
+        <a id="book-borrow-dialog-confirm" href="#!" class="modal-action waves-effect btn-flat">确认</a>
+        <a id="book-borrow-dialog-cancel" href="#!" class="modal-action modal-close btn-flat waves-effect">取消</a>
+    </div>
+</div>
+<div>
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col s12 m6">
+            <div id="isbn-card" class="card">
+                <div class="card-content">
+                    <span class="card-title">&nbsp&nbsp开始借书</span>
+                    <form>
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="input-field col s8">
+                                <input id="isbn" type="tel" class="validate" pattern="\d{13}" style="margin-bottom: 0px;">
+                                <label for="isbn">输入ISBN号开始</label>
+                            </div>
+                            <div class="col s2">
+                                <a id="open-scanner" href="#!" style="font-size: 30px; margin-top: 15px; display: block"><span class="icon-barcode"></span></a>
+                            </div>
+                            <div class="col s2">
+                                <p>&nbsp</p>
+                                <a id="search-button" href="#"><i class="material-icons prefix">search</i></a>
+                                <div class="preloader-wrapper small active">
+                                    <div id="search-preloder" class="spinner-layer spinner">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="default-book-card" class="card sticky-action hoverable" hidden>
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator book-image" src="images/book.jpg">
+                </div>
+                <div class="card-action">
+                    <a href="#!" class="book-borrow" isbn="1234567890">借书</a>
+                    <a href="#!" class="book-card-borrow-preloder">
+                        <div class="preloader-wrapper small active">
+                            <div class="spinner-layer">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#!" class="book-card-borrow-done"><i class="material-icons">done</i></a>
+                    <a href="#!"><i class="material-icons right activator black-text">more_vert</i></a>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><span class="book-title">书名</span><i class="material-icons right">close</i></span>
+                    <p class="book-author grey-text">Author1、Author2</p>
+                    <div class="book-tags">
+                        <div class="chip">Tag1</div>
+                        <div class="chip">Tag2</div>
+                    </div>
+                    <p class="grey-text">出版时间<span class="book-pubdate"></span></p>
+                    <h5 class="grey-text">内容简介</h5>
+                    <p class="book-summary">Summary</p>
+                    <h5 class="grey-text">位置</h5>
+                    <p class="book-location"></p>
+                </div>
+            </div>
+            <div id="book-container">
+            </div>
+        </div>
+        <div class="col s12 m6 grey-text text-darken-1">
+            <h5>借阅说明</h5>
+            <p>借出工作站需要在这个系统里登记。</br>每本书可以借出30天。为方便大家借书请看完后尽快归还。</br>每个人最多可同时借3本书。</p>
+        </div>
+    </div>
+</div>

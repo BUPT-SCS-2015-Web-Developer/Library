@@ -1,0 +1,69 @@
+<form class="container">
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="input-field col s6 m4">
+                    <input id="isbn" type="tel" class="validate" pattern="\d{13}">
+                    <label for="isbn">ISBN</label>
+                </div>
+                <div class="col s2 m1">
+                    <a id="open-scanner" href="#!" style="font-size: 30px; margin-top: 15px; display: block"><span class="icon-barcode"></span></a>
+                </div>
+                <div class="col s2 m1">
+                    <p>&nbsp</p>
+                    <a id="search" href="#!"><i class="material-icons">search</i></a>
+                </div>
+                <div class="col s2 m2 right">
+                    <p>&nbsp</p>
+                    <a id="submit" href="#!"><i class="material-icons">done</i></a>
+                </div>
+                <div id="preloder" class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+                <div id="enable-after-check" style="opacity: 0.4; cursor: not-allowed">
+                    <div class="col s12 m6">
+                        <div class="input-field">
+                            <input id="title" type="text" class="validate">
+                            <label for="title">书名</label>
+                        </div>
+                        <div id="author" class="chips"></div>
+                        <div id="tags" class="chips"></div>
+                        <div class="row">
+                            <div class="input-field col s2">
+                                <input id="amount" placeholder="1" value="1" type="tel" class="validate" pattern="\d">
+                                <label for="amount">数量</label>
+                            </div>
+                            <div class="input-field col s10">
+                                <input id="location" placeholder="2号书架4层5格" type="text" class="validate">
+                                <label for="location">位置</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="pages" type="tel" class="validate" pattern="\d*">
+                                <label for="pages">页数</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="pubdate" type="text" class="datepicker">
+                                <label for="pubdate">出版日期</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="price" type="text" class="validate" pattern="\d*.\d{2}">
+                                <label for="price">价格</label>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <input id="publisher" type="text" class="validate">
+                            <label for="publisher">出版者</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea id="summary" type="text" class="materialize-textarea"></textarea>
+                            <label for="summary">简介</label>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 right">
+                        <img id="book-cover" class="responsive-img" src="images/book.jpg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
