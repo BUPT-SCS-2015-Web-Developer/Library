@@ -4,16 +4,23 @@ const url = require('url');
 
 let win;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
-  win = new BrowserWindow({width: 1024, height: 768, titleBarStyle: 'hidden-inset'})
+  win = new BrowserWindow({ width: 1024, height: 768, titleBarStyle: 'hidden-inset', backgroundColor: '#03a9f4' })
 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'live_w_locator.html'),
+    pathname: path.join(__dirname, 'main.html'),
     protocol: 'file:',
     slashes: true
   }))
+
+  win.once('ready-to-show', () => {
+    win.show()
+  })
+
+  // Open the DevTools.
+  //win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {
