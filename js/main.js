@@ -150,13 +150,19 @@ app.dashboardFrame = {
             $("#hide-on-load").hide();
             $("#search-preloder").hide();
             $("#search-button").click(function () {
-                if (!$("#isbn").hasClass("valid")) {
+                if (!$("#isbn").val().match(/^\d{13}$/)) {
                     return;
                 }
                 $("#search-button").hide();
                 $("#search-preloder").show();
                 app.borrowFrame.setISBN($("#isbn").val());
                 app.nav.openBorrow();
+            });
+            $("#open-scanner").click(function () {
+                app.scanner.init(function (result) {
+                    $("#isbn").val(result);
+                    Materialize.updateTextFields();
+                });
             });
             $.getJSON(app.getURL("API/statics.php"), function (data) {
                 if (data.result != "succeed") {
@@ -227,13 +233,19 @@ app.borrowFrame = {
             $("#search-preloder").parent().hide();
             $('.modal').modal();
             $("#search-button").click(function () {
-                if (!$("#isbn").hasClass("valid")) {
+                if (!$("#isbn").val().match(/^\d{13}$/)) {
                     return;
                 }
                 $("#search-button").hide();
                 $("#search-preloder").show();
                 app.borrowFrame.setISBN($("#isbn").val());
                 app.borrowFrame._load();
+            });
+            $("#open-scanner").click(function () {
+                app.scanner.init(function (result) {
+                    $("#isbn").val(result);
+                    Materialize.updateTextFields();
+                });
             });
 
             if (app.borrowFrame._isbn != "") {
@@ -393,16 +405,23 @@ app.listHistoryFrame = {
                 }
             });
             $("#search-button").click(function () {
-                if (!$("#bookUID").hasClass("valid")) {
+                if (!$("#bookUID").val().match(/^\d{14}$/)) {
                     return;
                 }
                 app.listHistoryFrame._bookUID = $("#bookUID").val();
                 app.listHistoryFrame._load();
             });
+            $("#open-scanner").click(function () {
+                app.scanner.init(function (result) {
+                    $("#bookUID").val(result);
+                    Materialize.updateTextFields();
+                });
+            });
             $("table").hide();
             $("#preloder").hide();
             $("#no-history").hide();
             $("#sample-row").hide();
+            $('.tooltipped').tooltip({delay: 50});
 
             if (app.listHistoryFrame._bookUID != "") {
                 $("#bookUID").val(app.listHistoryFrame._bookUID);
