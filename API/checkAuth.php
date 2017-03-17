@@ -29,6 +29,9 @@
         'userPic'  => $user['info']['yb_userhead'],
         'isAdmin'  => false
     );
+    $_SESSION['isAdmin'] = false;
+    $_SESSION['canReturn'] = false;
+    $_SESSION['banBorrow'] = false;
 
     try {
         $dbh = new PDO("mysql:host={$cfg['host']};dbname={$cfg['dbName']}", $cfg['user'], $cfg['pwd'], [PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]);
@@ -37,12 +40,21 @@
         die();
     }
 
-    $stmt = $dbh->prepare("SELECT isAdmin FROM user WHERE userID = :userID");
+    $stmt = $dbh->prepare("SELECT isAdmin, canReturn, banBorrow FROM user WHERE userID = :userID");
     $stmt->bindParam(':userID', $user['info']['yb_userid']);
     $stmt->execute();
-    $isAdmin = $stmt->fetch();
-    if ($isAdmin) {
-        $data['isAdmin'] = true;
+    $result = $stmt->fetch();
+    if ($result) {
+        if ($result['isAdmin']) {
+            $data['isAdmin'] = true;
+            $_SESSION['isAdmin'] = true;
+        }
+        if ($result['canReturn']) {
+            $_SESSION['canReturn'] = true;
+        }
+        if ($result['banBorrow']) {
+            $_SESSION['banBorrow'] = true;
+        }
     }
 
     print(json_encode($data));
