@@ -525,7 +525,7 @@ app.newFrame = {
                     });
                     $("#pages").val(data.pages);
                     $("#pubdate").val(data.pubdate);
-                    $("#price").val(data.price.split(" ")[1]);
+                    $("#price").val(data.price.split("元")[0]);
                     $("#publisher").val(data.publisher);
                     $("#summary").val(data.summary);
                     $("#book-cover").attr("src", data.images.large);

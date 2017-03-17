@@ -33,12 +33,7 @@
     $_SESSION['canReturn'] = false;
     $_SESSION['banBorrow'] = false;
 
-    try {
-        $dbh = new PDO("mysql:host={$cfg['host']};dbname={$cfg['dbName']}", $cfg['user'], $cfg['pwd'], [PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"]);
-    } catch (PDOExveption $e) {
-        print('{"result":"Database Fatal"');
-        die();
-    }
+    include_once('connectDB.php');
 
     $stmt = $dbh->prepare("SELECT isAdmin, canReturn, banBorrow FROM user WHERE userID = :userID");
     $stmt->bindParam(':userID', $user['info']['yb_userid']);
