@@ -516,7 +516,7 @@ app.newFrame = {
                     });
                     chipArray = [];
                     for (i in data.tags) {
-                        chipArray[i] = { tag: data.tags[i] };
+                        chipArray[i] = { tag: data.tags[i].title };
                     }
                     $("#tags").material_chip({
                         data: chipArray,
