@@ -60,6 +60,9 @@
         $stmt->bindParam(":name", $_SESSION['name']);
         $stmt->execute();
 
+        $stmt = $dbh->prepare("UPDATE `static` SET `amount` = `amount` + 1 WHERE `static`.`date` = CURRENT_DATE");
+        $stmt->execute();
+
         $dbh->commit();
         print('{"result":"succeed"}');
     } catch (Exception $e) {

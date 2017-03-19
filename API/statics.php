@@ -26,7 +26,11 @@
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $data['data'] = $rows;
-        
+
+        $stmt = $dbh->prepare("SELECT amount FROM `static` WHERE `date` = CURRENT_DATE");
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $data['today'] = $row['amount'];
 
         $dbh->commit();
         print(json_encode($data, JSON_UNESCAPED_UNICODE));
