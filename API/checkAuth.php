@@ -17,7 +17,7 @@
     $api = YBOpenApi::getInstance()->init($cfg['appID'], $cfg['appSecret'], $cfg['callback']);
 	$api = YBOpenApi::getInstance()->bind($_SESSION['token']);
 
-    $user = $api->getUser()->me();
+    $user = $api->getUser()->realme();
     if ($user['status'] != 'success') {
         notAuthorized();
     }
@@ -25,10 +25,11 @@
     $data = array(
         'result' => 'succeed',
         'userID' => $user['info']['yb_userid'],
-        'userName' => $user['info']['yb_username'],
+        'userName' => $user['info']['yb_realname'],
         'userPic'  => $user['info']['yb_userhead'],
         'isAdmin'  => false
     );
+    $_SESSION['name'] = $data['userName'];
     $_SESSION['isAdmin'] = false;
     $_SESSION['canReturn'] = false;
     $_SESSION['banBorrow'] = false;
