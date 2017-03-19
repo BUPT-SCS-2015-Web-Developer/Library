@@ -22,13 +22,13 @@
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $dbh->beginTransaction();
 
-        $stmt = $dbh->prepare("SELECT * FROM `borrow` WHERE `userID` = :userID");
+        $stmt = $dbh->prepare("SELECT `isbn`, 30 - DATEDIFF(CURRENT_DATE, `date`) AS rest FROM `borrow` WHERE `userID` = :userID");
         $stmt->bindParam(":userID", $_SESSION['usrid']);
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $data['books'] = array();
-        foreach ($rows as $row) {
-            $isbn = $row['isbn'];
+        foreach ($rows as $borrowRow) {
+            $isbn = $borrowRow['isbn'];
             $dataRow = array();
             
             $stmt = $dbh->prepare("SELECT * FROM `book` WHERE `isbn` = :isbn");
@@ -58,6 +58,8 @@
             foreach($rows as $row) {
                 $dataRow['tags'][] = $row['tag'];
             }
+
+            $dataRow['rest'] = $borrowRow['rest'];
 
             $data['books'][] = $dataRow;
         }
