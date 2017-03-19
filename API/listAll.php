@@ -1,24 +1,43 @@
-{
-    "result": "succeed",
-    "data": [
-        {
-            "bookUID": "978711111112",
-            "title": "Re: 从零开始的异世界生活",
-            "borrower": "Linkin",
-            "borrowDate": "2017-02-17",
-            "dueDate": "2017-03-17"
-        }, {
-            "bookUID": "978711111113",
-            "title": "Re: 从零开始",
-            "borrower": "Linkin",
-            "borrowDate": "2017-02-18",
-            "dueDate": "2017-03-17"           
-        }, {
-            "bookUID": "12345678901234",
-            "title": "Re: 异世界生活",
-            "borrower": "Linkin",
-            "borrowDate": "2017-01-17",
-            "dueDate": "2017-03-17"
+<?php
+    include_once('config.php');
+
+    session_start();
+	
+    function notAuthorized() {
+        print('{"result": "forbidden"}');
+        die();
+    }
+
+	if (empty($_SESSION['token']))
+	{
+		notAuthorized();
+	}
+
+    if (!$_SESSION['isAdmin']) {
+        notAuthorized();
+    }
+
+    include_once('connectDB.php');
+
+    $data = array();
+    $data['result'] = "succeed";
+
+    try {
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $dbh->beginTransaction();
+
+        $stmt = $dbh->prepare("SELECT bookUID, title, name AS borrower, date AS borrowDate, DATE_ADD(date,INTERVAL 30 DAY) AS dueDate FROM `borrow`, `book` WHERE `returnDate` = 0 AND `book`.`isbn` = `borrow`.`isbn`");
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data['data'] = array();
+        foreach ($rows as $row) {
+            $data['data'][] = $row;
         }
-    ]
-}
+        
+        $dbh->commit();
+        print(json_encode($data, JSON_UNESCAPED_UNICODE));
+    } catch (Exception $e) {
+        $dbh->rollBack();
+        print('{"result":"fail"}');
+    }
+?>
