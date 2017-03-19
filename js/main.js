@@ -548,6 +548,10 @@ app.newFrame = {
                     Materialize.toast('请填写ISBN', 4000);
                     return;
                 }
+                if (!$("#price").val().match(/^\d*.\d*$/)) {
+                    Materialize.toast('请删除价格中的多余符号，只留下数字', 4000);
+                    return;
+                }
                 app.newFrame.bookData.amount = $("#amount").val();
                 app.newFrame.bookData.location = $("#location").val();
                 var chipArray = $("#author").material_chip("data");

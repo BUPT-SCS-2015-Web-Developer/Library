@@ -30,6 +30,7 @@
             throw new Exception('No data.');
         }
         $data['books'][0] = $row;
+        $data['books'][0]['isbn13'] = $row['isbn'];
         $data['books'][0]['images']['small'] = $row['smallimage'];
         $data['books'][0]['images']['large'] = $row['largeimage'];
         $data['books'][0]['images']['medium'] = $row['mediumimage'];
