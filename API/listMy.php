@@ -29,6 +29,8 @@
         $data['books'] = array();
         foreach ($rows as $row) {
             $isbn = $row['isbn'];
+            $dataRow = array();
+            
             $stmt = $dbh->prepare("SELECT * FROM `book` WHERE `isbn` = :isbn");
             $stmt->bindParam(":isbn", $isbn);
             $stmt->execute();
@@ -36,17 +38,17 @@
             if ($row === false) {
                 throw new Exception('No data.');
             }
-            $data['books'][] = $row;
-            $data['books'][]['images']['small'] = $row['smallimage'];
-            $data['books'][]['images']['large'] = $row['largeimage'];
-            $data['books'][]['images']['medium'] = $row['mediumimage'];
+            $dataRow = $row;
+            $dataRow['images']['small'] = $row['smallimage'];
+            $dataRow['images']['large'] = $row['largeimage'];
+            $dataRow['images']['medium'] = $row['mediumimage'];
 
             $stmt = $dbh->prepare("SELECT `author` FROM `author` WHERE `isbn` = :isbn");
             $stmt->bindParam(":isbn", $isbn);
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach($rows as $row) {
-                $data['books'][]['author'][] = $row['author'];
+                $dataRow['author'][] = $row['author'];
             }
 
             $stmt = $dbh->prepare("SELECT `tag` FROM `tags` WHERE `isbn` = :isbn");
@@ -54,8 +56,10 @@
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach($rows as $row) {
-                $data['books'][]['tags'][] = $row['tag'];
+                $dataRow['tags'][] = $row['tag'];
             }
+
+            $data['books'][] = $dataRow;
         }
 
         
