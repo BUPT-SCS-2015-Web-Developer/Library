@@ -502,7 +502,7 @@ app.newFrame = {
                 $.getJSON(app.getURL("API/helper.php"), { isbn13: $("#isbn").val() }, function (data) {
                     $("#enable-after-check").attr("style", "");
                     $("#preloder").css("visibility", "hidden");
-                    if (data.msg == "book_not_found") {
+                    if (data == null || data.msg == "book_not_found") {
                         Materialize.toast('无法自动获取书籍信息，请手动填写。', 4000);
                         return;
                     }
