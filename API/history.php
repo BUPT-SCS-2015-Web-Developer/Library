@@ -27,7 +27,7 @@
         $dbh->beginTransaction();
 
         if (isset($_GET['bookUID'])) {
-            $stmt = $dbh->prepare("SELECT name AS borrower, date AS borrowDate, DATE_ADD(date,INTERVAL 30 DAY) AS dueDate FROM `borrow` WHERE `bookUID` = :bookUID");
+            $stmt = $dbh->prepare("SELECT name AS borrower, date AS borrowDate, returnDate FROM `borrow` WHERE `bookUID` = :bookUID");
             $stmt->bindParam(":bookUID", $_GET['bookUID']);
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -36,7 +36,7 @@
                 $data['data'][] = $row;
             }
         } else if (isset($_GET['isbn'])) {
-            $stmt = $dbh->prepare("SELECT name AS borrower, date AS borrowDate, DATE_ADD(date,INTERVAL 30 DAY) AS dueDate FROM `borrow` WHERE `isbn` = :isbn");
+            $stmt = $dbh->prepare("SELECT name AS borrower, date AS borrowDate, returnDate FROM `borrow` WHERE `isbn` = :isbn");
             $stmt->bindParam(":isbn", $_GET['isbn']);
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
