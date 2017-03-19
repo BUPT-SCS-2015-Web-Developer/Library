@@ -171,18 +171,20 @@ app.dashboardFrame = {
                 $("#preloder").hide();
                 $("#hide-on-load").show();
 
-                $("#data-today").html(data.data[29]);
+                $("#data-today").html(data.today);
                 var ctx = $("#data-month");
-                var xAxe = [];
-                for (i = 0; i < 30; i++) {
-                    xAxe[i] = moment().subtract(29 - i, 'd').format("YYYY-MM-DD");
+                var pointData = [];
+                for (i in data.data) {
+                    pointData[i] = {
+                        x: data.data[i].date,
+                        y: data.data[i].amount
+                    }
                 }
                 var lineChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: xAxe,
                         datasets: [{
-                            data: data.data,//............没毛病
+                            data: pointData,
                             label: "日借出量",
                             fill: true,
                             backgroundColor: "rgba(31, 188, 210, 0.3)",
@@ -201,19 +203,20 @@ app.dashboardFrame = {
                                 display: true,
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Date'
+                                    labelString: '日期'
                                 },
                                 time: {
                                     displayFormats: {
                                         day: "YYYY-MM-DD"
-                                    }
+                                    },
+                                    unit: 'day'
                                 }
                             }],
                             yAxes: [{
                                 display: true,
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'value'
+                                    labelString: '借出量'
                                 }
                             }]
                         }
@@ -516,7 +519,7 @@ app.newFrame = {
                     });
                     chipArray = [];
                     for (i in data.tags) {
-                        chipArray[i] = { tag: data.tags[i] };
+                        chipArray[i] = { tag: data.tags[i].title };
                     }
                     $("#tags").material_chip({
                         data: chipArray,
@@ -525,7 +528,7 @@ app.newFrame = {
                     });
                     $("#pages").val(data.pages);
                     $("#pubdate").val(data.pubdate);
-                    $("#price").val(data.price.split(" ")[1]);
+                    $("#price").val(data.price.split("元")[0]);
                     $("#publisher").val(data.publisher);
                     $("#summary").val(data.summary);
                     $("#book-cover").attr("src", data.images.large);
