@@ -75,11 +75,11 @@ app.user = {
     },
     checkAuth: function (callback) {
         tokenData = fs.readFileSync(path.join(process.env.AppData, appName, 'token'), 'utf8');
-        alert(tokenData);
         $.getJSON(app.getURL("API/login.php"), {
             token: tokenData
         }, function (data) {
             if (data.result == "succeed") {
+                Materialize.toast('还书设备认证成功', 4000);
                 callback();
             } else {
                 Materialize.toast('还书设备认证失败，请检联系管理员', 100000);
