@@ -14,25 +14,7 @@
 	require("classes/yb-globals.inc.php");
 	
 	session_start();
-    print_r($_SESSION);
-
-	
-	/**
-	 * 配置文件
-	 */
-	include('config.php');
-
-	/**
-	 * 站内应用需要使用AppID、AppSecret和应用入口地址初始化
-	 *
-	 */
-	$api = YBOpenApi::getInstance()->init($cfg['appID'], $cfg['appSecret'], $cfg['callback']);
-	
-	if (!empty($_SESSION['token'])) {
-        $api->bind($_SESSION['token']);
-        $api->getAuthorize()->revoke();
-        $_SESSION['token'] = '';
-	}
+    session_destroy();
     
 	header('location: ' . '../logout.html');
 ?>
