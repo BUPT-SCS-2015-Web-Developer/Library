@@ -1,7 +1,11 @@
 var app = {};
+const path = require('path');
+const fs = require('fs');
+const appName = "BUPTYB Library";
+
 app.config = {
-    domain: 'linkin.local/Library/',
-    protocal: 'http'
+    domain: 'yibanapp.zuos.tk/Library/',
+    protocal: 'https'
 }
 
 app.mainFrame = $('main');
@@ -38,6 +42,8 @@ app.init = function () {
                 setTimeout(function() {
                     app.scrollTo($("#logo"));
                 }, 10000);
+            } else {
+                Materialize.toast('还书失败，请检查书籍编号或联系管理员', 4000);
             }
         });
     });
@@ -68,20 +74,17 @@ app.user = {
         app.user._admin = admin;
     },
     checkAuth: function (callback) {
-        $.getJSON(app.getURL("API/checkAuth.php"), function (data) {
+        tokenData = fs.readFileSync(path.join(process.env.AppData, appName, 'token'), 'utf8');
+        alert(tokenData);
+        $.getJSON(app.getURL("API/login.php"), {
+            token: tokenData
+        }, function (data) {
             if (data.result == "succeed") {
-                app.user.id = data.userID;
-                app.user.name = data.userName;
-                app.user.pic = data.userPic;
-                app.user.setAdmin(data.isAdmin);
                 callback();
             } else {
-                window.location.href = app.getURL("API/authorize.php");
+                Materialize.toast('还书设备认证失败，请检联系管理员', 100000);
             }
         });
-    },
-    logout: function () {
-        window.location.href = app.getURL("API/revoke.php");
     }
 }
 app.scanner = {
