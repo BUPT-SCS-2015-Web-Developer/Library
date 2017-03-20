@@ -262,12 +262,15 @@ app.borrowFrame = {
 
     _load: function () {
         $.getJSON(app.getURL("API/isbn.php"), { isbn: app.borrowFrame._isbn }, function (data) {
+            $("#search-button").show();
+            $("#search-preloder").hide();
             if (data.result == "succeed") {
-                $("#isbn-card").hide();
                 for (i in data.books) {
                     app.borrowFrame.bookCard[i] = new app.borrowFrame.BookCard(data.books[i]);
                     $("#book-container").append(app.borrowFrame.bookCard[i].card);
                 }
+            } else {
+                Materialize.toast("查无此书，请检查ISBN是否正确", 5000);
             }
         });
     }

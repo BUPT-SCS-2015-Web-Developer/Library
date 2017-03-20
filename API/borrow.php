@@ -68,6 +68,6 @@
     } catch (Exception $e) {
         $dbh->rollBack();
         print('{"result":"fail"}');
-        print($e->getMessage());
+        //print($e->getMessage());
     }
 ?>
