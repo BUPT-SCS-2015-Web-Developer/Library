@@ -53,7 +53,7 @@
             throw new Exception('Out of Stock.');
         }
 
-        $stmt = $dbh->prepare("INSERT INTO `borrow` (`bookUID`, `isbn`, `userID`, `name`, `date`) VALUES (:bookUID, :isbn, :userID, :name, CURRENT_DATE)");
+        $stmt = $dbh->prepare("INSERT INTO `borrow` (`bookUID`, `isbn`, `userID`, `name`, `date`, `returnDate`) VALUES (:bookUID, :isbn, :userID, :name, CURRENT_DATE, 0000-00-00)");
         $stmt->bindParam(":bookUID", $_GET['bookUID']);
         $stmt->bindParam(":isbn", $isbn);
         $stmt->bindParam(":userID", $_SESSION['usrid']);
@@ -68,5 +68,6 @@
     } catch (Exception $e) {
         $dbh->rollBack();
         print('{"result":"fail"}');
+        print($e->getMessage());
     }
 ?>

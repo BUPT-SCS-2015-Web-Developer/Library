@@ -1,7 +1,7 @@
 var app = {};
 app.config = {
-    domain: 'linkin.local/Library/',
-    protocal: 'http'
+    domain: 'yibanapp.zuos.tk/Library/',
+    protocal: 'https'
 }
 
 app.mainFrame = $('main');
@@ -552,13 +552,19 @@ app.newFrame = {
                     Materialize.toast('请删除价格中的多余符号，只留下数字', 4000);
                     return;
                 }
+                if (!$("#pubdate").val().match(/^\d{4}-\d{2}-\d{2}$/)) {
+                    Materialize.toast('日期格式不正确，应为YYYY-MM-DD格式', 4000);
+                    return;
+                }
                 app.newFrame.bookData.amount = $("#amount").val();
                 app.newFrame.bookData.location = $("#location").val();
                 var chipArray = $("#author").material_chip("data");
+                app.newFrame.bookData.author = [];
                 for (i in chipArray) {
                     app.newFrame.bookData.author[i] = chipArray[i].tag;
                 }
                 chipArray = $("#tags").material_chip("data");
+                app.newFrame.bookData.tags = [];
                 for (i in chipArray) {
                     app.newFrame.bookData.tags[i] = chipArray[i].tag;
                 }
