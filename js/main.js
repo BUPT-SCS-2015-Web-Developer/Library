@@ -1,6 +1,6 @@
 var app = {};
 app.config = {
-    domain: 'yibanapp.zuos.tk/Library/',
+    domain: 'library.buptyiban.org/',
     protocal: 'https'
 }
 

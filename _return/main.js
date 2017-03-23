@@ -1,6 +1,7 @@
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
 
 let win;
 
@@ -55,3 +56,6 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+global.appData = {
+  token: fs.readFileSync(path.join(process.env.LOCALAPPDATA, app.getName(), "token"), 'utf8')
+};

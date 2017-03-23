@@ -2,9 +2,10 @@ var app = {};
 const path = require('path');
 const fs = require('fs');
 const appName = "BUPTYB Library";
+appData = require('electron').remote.getGlobal('appData');
 
 app.config = {
-    domain: 'yibanapp.zuos.tk/Library/',
+    domain: 'library.buptyiban.org/',
     protocal: 'https'
 }
 
@@ -74,9 +75,8 @@ app.user = {
         app.user._admin = admin;
     },
     checkAuth: function (callback) {
-        tokenData = fs.readFileSync(path.join(process.env.AppData, appName, 'token'), 'utf8');
         $.getJSON(app.getURL("API/login.php"), {
-            token: tokenData
+            token: appData.token
         }, function (data) {
             if (data.result == "succeed") {
                 Materialize.toast('还书设备认证成功', 4000);
